@@ -3,9 +3,9 @@ package business;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class LibraryMember implements Serializable {
+public class Member implements Serializable {
 	private CheckoutRecord record = new CheckoutRecord();
-	public LibraryMember(String name) {
+	public Member(String name) {
 		this.name = name;
 	}
 	private String name;

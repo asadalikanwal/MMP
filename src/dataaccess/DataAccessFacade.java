@@ -6,7 +6,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import business.LibraryMember;
+import business.Member;
 
 public class DataAccessFacade implements DataAccess {
 	public static final String OUTPUT_DIR = System.getProperty("user.dir") 
@@ -14,7 +14,7 @@ public class DataAccessFacade implements DataAccess {
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
 	
 	@Override
-	public void saveLibraryMember(String name, LibraryMember member) {
+	public void saveLibraryMember(String name, Member member) {
 		ObjectOutputStream out = null;
 		try {
 			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, name);
@@ -32,13 +32,13 @@ public class DataAccessFacade implements DataAccess {
 	}
 	
 	@Override
-	public LibraryMember readLibraryMember(String name) {
+	public Member readLibraryMember(String name) {
 		ObjectInputStream in = null;
-		LibraryMember member = null;
+		Member member = null;
 		try {
 			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, name);
 			in = new ObjectInputStream(Files.newInputStream(path));
-			member = (LibraryMember)in.readObject();
+			member = (Member)in.readObject();
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {

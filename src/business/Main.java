@@ -15,7 +15,7 @@ import dataaccess.DataAccessFacade;
 public class Main {
 	
 	public static void main(String[] args) {
-		LibraryMember member = new LibraryMember("John");
+		Member member = new Member("John");
 		Publication p = new Book(1, "1234","Gone with the Wind");
 		LendableCopy c = new LendableCopy();
 		c.setPublication(p);

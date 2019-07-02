@@ -1,8 +1,8 @@
 package dataaccess;
 
-import business.LibraryMember;
+import business.Member;
 
 public interface DataAccess {
-	public void saveLibraryMember(String name, LibraryMember member);
-	public LibraryMember readLibraryMember(String name);
+	public void saveLibraryMember(String name, Member member);
+	public Member readLibraryMember(String name);
 }
