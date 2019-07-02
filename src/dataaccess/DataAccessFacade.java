@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 import business.Book;
@@ -106,18 +107,29 @@ public class DataAccessFacade implements DataAccess {
 		return retVal;
 	}
 
+	// book
+	@Override
+	public void saveNewBook(Book book) {
+		writeToStorage(DbType.BOOKS, book);
+	}
+
 	@Override
 	public HashMap<String, Book> readBooksMap() {
 		return (HashMap<String, Book>) readFromStorage(DbType.BOOKS);
 	}
 
+	// user
 	@Override
 	public HashMap<String, User> readUserMap() {
-		// TODO Auto-generated method stub
-
 		return (HashMap<String, User>) readFromStorage(DbType.USERS);
 	}
 
+	@Override
+	public void saveUserMap(User user) {
+		writeToStorage(DbType.USERS, user);
+	}
+
+	// member
 	@Override
 	public HashMap<String, Member> readMemberMap() {
 		return (HashMap<String, Member>) readFromStorage(DbType.MEMBERS);
@@ -130,30 +142,58 @@ public class DataAccessFacade implements DataAccess {
 	}
 
 	@Override
-	public void updateMembers(HashMap<String, Member> members) {
-		// TODO Auto-generated method stub
+	public boolean updateMembers(Member m) {
+		HashMap<String, Member> updateMap = (HashMap<String, Member>) readFromStorage(DbType.MEMBERS);
+		if (updateMap != null) {
+			if (updateMap.containsKey(m.getMemberId())) {
+				updateMap.put(m.getMemberId(), m);
+				saveNewMember(m);
+				return true;
+			}
+		}
+		return false;
+	}
 
+	// checkout
+	@Override
+	public HashMap<String, CheckoutRecord> readCheckoutRecordMap() {
+		return (HashMap<String, CheckoutRecord>) readFromStorage(DbType.CHECKOUTRECORD);
 	}
 
 	@Override
-	public HashMap<String, Member> readCheckoutRecordMap() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean saveCheckoutRecord(CheckoutRecord record) {
+		Book tempBook = record.getBook();
+		if (tempBook.getNumberOfCopy() > 1 && record.isReturnStatus() == false) {
+			tempBook.setNumberOfCopy(tempBook.getNumberOfCopy() - 1);
+			saveNewBook(tempBook);
+			writeToStorage(DbType.CHECKOUTRECORD, record);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public void saveNewBook(Book book) {
-		writeToStorage(DbType.BOOKS, book);
+	public boolean returnBook(String id) {
+		HashMap<String, CheckoutRecord> bookMap = (HashMap<String, CheckoutRecord>) readFromStorage(
+				DbType.CHECKOUTRECORD);
+		for (CheckoutRecord record : bookMap.values()) {
+			if (record.getBook().getId().equals(id)) {
+				LocalDate todayDate = LocalDate.now();
+				if (todayDate.compareTo(record.getDueDate()) <= 0) {
+					// on time
+					record.setReturnStatus(true);
+					Book tempBook = record.getBook();
+					tempBook.setNumberOfCopy(tempBook.getNumberOfCopy() + 1);
+					saveNewBook(tempBook);
+					saveCheckoutRecord(record);
+				} else {
+					// calculate fine
+//TODO
+					System.out.println("Book is overdue, cannot checkout without fine!");
+				}
+			}
+		}
+		return false;
 	}
-
-	@Override
-	public void saveUserMap(User user) {
-		writeToStorage(DbType.USERS, user);
-	}
-
-	@Override
-	public void saveCheckoutRecord(CheckoutRecord record) {
-		writeToStorage(DbType.CHECKOUTRECORD, record);
-	}
-
 }

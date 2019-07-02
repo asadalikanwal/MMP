@@ -10,6 +10,10 @@ public class Book implements Serializable {
 	private List<Author> authors;
 	private boolean availability;
 	private int numberOfCopy;
+	public void setNumberOfCopy(int numberOfCopy) {
+		this.numberOfCopy = numberOfCopy;
+	}
+
 	private int maxCheckoutLength;
 	private String id;
 

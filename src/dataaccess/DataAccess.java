@@ -8,13 +8,28 @@ import business.Member;
 import business.User;
 
 public interface DataAccess {
-	public HashMap<String,Book> readBooksMap();
-	public HashMap<String, User> readUserMap();
+
+	// member
 	public HashMap<String, Member> readMemberMap();
-	public HashMap<String, Member> readCheckoutRecordMap();
+
+	public boolean updateMembers(Member member);
+
 	public void saveNewMember(Member member);
+
+	// book
 	public void saveNewBook(Book book);
+
+	public HashMap<String, Book> readBooksMap();
+	
+	public boolean returnBook(String bookId);
+
+	// user
 	public void saveUserMap(User user);
-	public void updateMembers(HashMap<String, Member> members);
-	public void saveCheckoutRecord(CheckoutRecord record);
+
+	public HashMap<String, User> readUserMap();
+
+	// checkout Records
+	public boolean saveCheckoutRecord(CheckoutRecord record);
+
+	public HashMap<String, CheckoutRecord> readCheckoutRecordMap();
 }
