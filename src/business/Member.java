@@ -3,22 +3,27 @@ package business;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Member implements Serializable {
-	private CheckoutRecord record = new CheckoutRecord();
-	public Member(String name) {
-		this.name = name;
+public class Member extends Person implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private int memberId;
+	private CheckoutRecord checkoutRecord;
+
+	public Member(String firstName, String lastName, Address address, String phoneNumber, int memberId,
+			CheckoutRecord checkoutRecord) {
+		super(firstName, lastName, address, phoneNumber);
+		this.memberId = memberId;
+		this.checkoutRecord = checkoutRecord;
 	}
-	private String name;
-	
-	public void checkout(LendableCopy copy, LocalDate checkoutDate, LocalDate dueDate) {
-		CheckoutRecordEntry entry = new CheckoutRecordEntry(copy, checkoutDate, dueDate);
-		record.addEntry(entry);
-		
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
-	
-	public String toString() {
-		return "Checkout record for library member " + name + ": " + record;
+
+	public int getMemberId() {
+		return memberId;
 	}
-	
-	private static final long serialVersionUID = -2226197306790714013L;
+
+	public CheckoutRecord getCheckoutRecord() {
+		return checkoutRecord;
+	}
 }

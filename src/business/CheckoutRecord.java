@@ -5,15 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CheckoutRecord implements Serializable {
-	
-	private static final long serialVersionUID = -3119855589946373695L;
+	private static final long serialVersionUID = 1L;
 	private Member member;
-	private List<CheckoutRecordEntry> entries = new ArrayList<>();
-	public void addEntry(CheckoutRecordEntry c) {
-		entries.add(c);
+	private Book book;
+
+	public CheckoutRecord(Member member, Book book) {
+		this.member = member;
+		this.book = book;
 	}
-	
-	public String toString() {
-		return entries.toString();
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public Book getBook() {
+		return book;
 	}
 }
