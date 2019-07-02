@@ -1,5 +1,5 @@
 package business;
 
-public enum accessLevel {
+public enum AccessLevel {
 	LIBRARIAN, ADMINISTRATOR, BOTH;
 }

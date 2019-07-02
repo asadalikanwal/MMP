@@ -11,10 +11,10 @@ public class Book implements Serializable {
 	private boolean availability;
 	private int numberOfCopy;
 	private int maxCheckoutLength;
-	private int id;
+	private String id;
 
 	public Book(String title, String isbn, List<Author> authors, boolean availability, int numberOfCopy,
-			int maxCheckoutLength, int id) {
+			int maxCheckoutLength, String id) {
 		this.title = title;
 		this.isbn = isbn;
 		this.authors = authors;
@@ -52,7 +52,15 @@ public class Book implements Serializable {
 		return maxCheckoutLength;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
+	}
+	
+	public String toString() {
+		String string = "";
+		for (Author author : authors) {
+			string += author.getFirstName() +", "+ author.getLastName();
+		}
+		return title + "'s author is " + string;
 	}
 }

@@ -14,14 +14,13 @@ public class CheckoutRecord implements Serializable {
 		this.book = book;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public Member getMember() {
 		return member;
 	}
-
+	
+	public String getMemberId() {
+		return member.getMemberId();
+	}
 	public Book getBook() {
 		return book;
 	}
