@@ -10,26 +10,20 @@ public class Book implements Serializable {
 	private List<Author> authors;
 	private boolean availability;
 	private int numberOfCopy;
-	public void setNumberOfCopy(int numberOfCopy) {
-		this.numberOfCopy = numberOfCopy;
-	}
-
+	private int totalNumOfCopy;
 	private int maxCheckoutLength;
 	private String id;
 
 	public Book(String title, String isbn, List<Author> authors, boolean availability, int numberOfCopy,
-			int maxCheckoutLength, String id) {
+			int maxCheckoutLength) {
 		this.title = title;
 		this.isbn = isbn;
 		this.authors = authors;
 		this.availability = availability;
 		this.numberOfCopy = numberOfCopy;
+		this.totalNumOfCopy = numberOfCopy;
 		this.maxCheckoutLength = maxCheckoutLength;
-		this.id = id;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+		this.id = isbn + "-" + numberOfCopy;
 	}
 
 	public String getTitle() {
@@ -51,6 +45,18 @@ public class Book implements Serializable {
 	public int getNumberOfCopy() {
 		return numberOfCopy;
 	}
+	
+	public int getTotalNumOfCopy() {
+		return totalNumOfCopy;
+	}
+	
+	public void setTotalNumOfCopy(int totalNumOfCopy) {
+		this.totalNumOfCopy = totalNumOfCopy;
+	}
+	
+	public void setNumberOfCopy(int numberOfCopy) {
+		this.numberOfCopy = numberOfCopy;
+	}
 
 	public int getMaxCheckoutLength() {
 		return maxCheckoutLength;
@@ -65,6 +71,6 @@ public class Book implements Serializable {
 		for (Author author : authors) {
 			string += author.getFirstName() +", "+ author.getLastName();
 		}
-		return title + "'s author is " + string;
+		return title + "'s author is " + string + ", total copy is " + totalNumOfCopy;
 	}
 }

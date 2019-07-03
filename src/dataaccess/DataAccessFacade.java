@@ -7,8 +7,12 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import business.AccessLevel;
+import business.Alerts;
 import business.Book;
 import business.CheckoutRecord;
 import business.Member;
@@ -45,7 +49,7 @@ public class DataAccessFacade implements DataAccess {
 				} else if (type == DbType.CHECKOUTRECORD) {
 					HashMap<String, CheckoutRecord> map = (HashMap<String, CheckoutRecord>) temp;
 					CheckoutRecord record = (CheckoutRecord) ob;
-					map.put(record.getMemberId(), record);
+					map.put(record.getRecordId(), record);
 					ob = map;
 				}
 			} else {
@@ -67,7 +71,7 @@ public class DataAccessFacade implements DataAccess {
 				} else if (type == DbType.CHECKOUTRECORD) {
 					HashMap<String, CheckoutRecord> map = new HashMap<String, CheckoutRecord>();
 					CheckoutRecord record = (CheckoutRecord) ob;
-					map.put(record.getMemberId(), record);
+					map.put(record.getRecordId(), record);
 					ob = map;
 				}
 			}
@@ -95,7 +99,7 @@ public class DataAccessFacade implements DataAccess {
 			in = new ObjectInputStream(Files.newInputStream(path));
 			retVal = in.readObject();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("creating new file " + type.toString());
 		} finally {
 			if (in != null) {
 				try {
@@ -117,6 +121,29 @@ public class DataAccessFacade implements DataAccess {
 	public HashMap<String, Book> readBooksMap() {
 		return (HashMap<String, Book>) readFromStorage(DbType.BOOKS);
 	}
+	
+	@Override
+	public boolean addCopy(String isbn, int number) {
+		Book book = searchBook(isbn);
+		if (book != null) {
+			book.setNumberOfCopy(book.getNumberOfCopy() + number);
+			book.setTotalNumOfCopy(book.getTotalNumOfCopy() + number);
+			saveNewBook(book);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public Book	searchBook(String isbn) {
+		HashMap<String, Book> books = (HashMap<String, Book>) readFromStorage(DbType.BOOKS);
+		for (Book book : books.values()) {
+			if (book.getIsbn().equals(isbn)) {
+				return book;
+			}
+		}
+		return null;
+	}
 
 	// user
 	@Override
@@ -127,6 +154,16 @@ public class DataAccessFacade implements DataAccess {
 	@Override
 	public void saveUserMap(User user) {
 		writeToStorage(DbType.USERS, user);
+	}
+	
+	@Override
+	public String userLogin(String username, String password) {
+		HashMap<String, User> users = readUserMap();
+		User user = users.get(username);
+		if (user != null && user.getPassword().equals(password)) {
+			return user.getAccessLevel().toString();
+		}
+		return null;
 	}
 
 	// member
@@ -153,6 +190,18 @@ public class DataAccessFacade implements DataAccess {
 		}
 		return false;
 	}
+	
+	@Override
+	public List<CheckoutRecord> searchMember(String id) {
+		HashMap<String, CheckoutRecord> checkoutRecord = (HashMap<String, CheckoutRecord>) readFromStorage(DbType.CHECKOUTRECORD);
+		List<CheckoutRecord> chkRecords = new ArrayList<CheckoutRecord>();
+		for (CheckoutRecord record : checkoutRecord.values()) {
+			if (record.getMember().getMemberId().equals(id)) {
+				chkRecords.add(record);
+			}
+		}
+		return chkRecords;
+	}
 
 	// checkout
 	@Override
@@ -163,7 +212,7 @@ public class DataAccessFacade implements DataAccess {
 	@Override
 	public boolean saveCheckoutRecord(CheckoutRecord record) {
 		Book tempBook = record.getBook();
-		if (tempBook.getNumberOfCopy() > 1 && record.isReturnStatus() == false) {
+		if (tempBook.getNumberOfCopy() > 0 && record.isReturnStatus() == false) {
 			tempBook.setNumberOfCopy(tempBook.getNumberOfCopy() - 1);
 			saveNewBook(tempBook);
 			writeToStorage(DbType.CHECKOUTRECORD, record);
@@ -175,8 +224,7 @@ public class DataAccessFacade implements DataAccess {
 
 	@Override
 	public boolean returnBook(String id) {
-		HashMap<String, CheckoutRecord> bookMap = (HashMap<String, CheckoutRecord>) readFromStorage(
-				DbType.CHECKOUTRECORD);
+		HashMap<String, CheckoutRecord> bookMap = (HashMap<String, CheckoutRecord>) readFromStorage(DbType.CHECKOUTRECORD);
 		for (CheckoutRecord record : bookMap.values()) {
 			if (record.getBook().getId().equals(id)) {
 				LocalDate todayDate = LocalDate.now();

@@ -9,6 +9,7 @@ public class CheckoutRecord implements Serializable {
 	private Book book;
 	private LocalDate dueDate;
 	private boolean returnStatus;
+	private String recordId;
 
 	public CheckoutRecord(Member member, Book book) {
 		this.member = member;
@@ -16,14 +17,15 @@ public class CheckoutRecord implements Serializable {
 		LocalDate todayDate = LocalDate.now();
 		this.dueDate = todayDate.plusDays(book.getMaxCheckoutLength());
 		returnStatus = false;
+		recordId = member.getMemberId() + book.getId();
 	}
 
 	public Member getMember() {
 		return member;
 	}
 	
-	public String getMemberId() {
-		return member.getMemberId();
+	public String getRecordId() {
+		return recordId;
 	}
 	public Book getBook() {
 		return book;
