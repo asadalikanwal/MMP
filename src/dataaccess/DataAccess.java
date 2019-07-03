@@ -16,7 +16,7 @@ public interface DataAccess {
 
 	public HashMap<String, User> readUserMap();
 	
-	public String userLogin(String username, String password);
+	public AccessLevel userLogin(String username, String password);
 	
 	// member
 	public HashMap<String, Member> readMemberMap();

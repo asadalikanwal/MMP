@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import business.AccessLevel;
-import business.Alerts;
 import business.Book;
 import business.CheckoutRecord;
 import business.Member;
@@ -30,50 +29,30 @@ public class DataAccessFacade implements DataAccess {
 		ObjectOutputStream out = null;
 		try {
 			Object temp = readFromStorage(type);
-			if (temp != null) {
-				if (type == DbType.MEMBERS) {
-					HashMap<String, Member> map = (HashMap<String, Member>) temp;
-					Member member = (Member) ob;
-					map.put(member.getMemberId(), member);
-					ob = map;
-				} else if (type == DbType.BOOKS) {
-					HashMap<String, Book> map = (HashMap<String, Book>) temp;
-					Book book = (Book) ob;
-					map.put(book.getId(), book);
-					ob = map;
-				} else if (type == DbType.USERS) {
-					HashMap<String, User> map = (HashMap<String, User>) temp;
-					User user = (User) ob;
-					map.put(user.getUsername(), user);
-					ob = map;
-				} else if (type == DbType.CHECKOUTRECORD) {
-					HashMap<String, CheckoutRecord> map = (HashMap<String, CheckoutRecord>) temp;
-					CheckoutRecord record = (CheckoutRecord) ob;
-					map.put(record.getRecordId(), record);
-					ob = map;
-				}
-			} else {
-				if (type == DbType.MEMBERS) {
-					HashMap<String, Member> map = new HashMap<String, Member>();
-					Member member = (Member) ob;
-					map.put(member.getMemberId(), member);
-					ob = map;
-				} else if (type == DbType.BOOKS) {
-					HashMap<String, Book> map = new HashMap<String, Book>();
-					Book book = (Book) ob;
-					map.put(book.getId(), book);
-					ob = map;
-				} else if (type == DbType.USERS) {
-					HashMap<String, User> map = new HashMap<String, User>();
-					User user = (User) ob;
-					map.put(user.getUsername(), user);
-					ob = map;
-				} else if (type == DbType.CHECKOUTRECORD) {
-					HashMap<String, CheckoutRecord> map = new HashMap<String, CheckoutRecord>();
-					CheckoutRecord record = (CheckoutRecord) ob;
-					map.put(record.getRecordId(), record);
-					ob = map;
-				}
+			if (type == DbType.MEMBERS) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, Member> map = (temp != null) ? (HashMap<String, Member>)temp : new HashMap<String, Member>();
+				Member member = (Member) ob;
+				map.put(member.getMemberId(), member);
+				ob = map;
+			} else if (type == DbType.BOOKS) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, Book> map = (temp != null) ? (HashMap<String, Book>)temp : new HashMap<String, Book>();
+				Book book = (Book) ob;
+				map.put(book.getId(), book);
+				ob = map;
+			} else if (type == DbType.USERS) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, User> map = (temp != null) ? (HashMap<String, User>)temp : new HashMap<String, User>();
+				User user = (User) ob;
+				map.put(user.getUsername(), user);
+				ob = map;
+			} else if (type == DbType.CHECKOUTRECORD) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, CheckoutRecord> map = (temp != null) ? (HashMap<String, CheckoutRecord>)temp : new HashMap<String, CheckoutRecord>();
+				CheckoutRecord record = (CheckoutRecord) ob;
+				map.put(record.getRecordId(), record);
+				ob = map;
 			}
 
 			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, type.toString());
@@ -117,11 +96,12 @@ public class DataAccessFacade implements DataAccess {
 		writeToStorage(DbType.BOOKS, book);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public HashMap<String, Book> readBooksMap() {
 		return (HashMap<String, Book>) readFromStorage(DbType.BOOKS);
 	}
-	
+
 	@Override
 	public boolean addCopy(String isbn, int number) {
 		Book book = searchBook(isbn);
@@ -133,9 +113,10 @@ public class DataAccessFacade implements DataAccess {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public Book	searchBook(String isbn) {
+		@SuppressWarnings("unchecked")
 		HashMap<String, Book> books = (HashMap<String, Book>) readFromStorage(DbType.BOOKS);
 		for (Book book : books.values()) {
 			if (book.getIsbn().equals(isbn)) {
@@ -146,6 +127,7 @@ public class DataAccessFacade implements DataAccess {
 	}
 
 	// user
+	@SuppressWarnings("unchecked")
 	@Override
 	public HashMap<String, User> readUserMap() {
 		return (HashMap<String, User>) readFromStorage(DbType.USERS);
@@ -155,18 +137,19 @@ public class DataAccessFacade implements DataAccess {
 	public void saveUserMap(User user) {
 		writeToStorage(DbType.USERS, user);
 	}
-	
+
 	@Override
-	public String userLogin(String username, String password) {
+	public AccessLevel userLogin(String username, String password) {
 		HashMap<String, User> users = readUserMap();
 		User user = users.get(username);
 		if (user != null && user.getPassword().equals(password)) {
-			return user.getAccessLevel().toString();
+			return user.getAccessLevel();
 		}
-		return null;
+		return AccessLevel.NONE;
 	}
 
 	// member
+	@SuppressWarnings("unchecked")
 	@Override
 	public HashMap<String, Member> readMemberMap() {
 		return (HashMap<String, Member>) readFromStorage(DbType.MEMBERS);
@@ -180,19 +163,20 @@ public class DataAccessFacade implements DataAccess {
 
 	@Override
 	public boolean updateMembers(Member m) {
+		@SuppressWarnings("unchecked")
 		HashMap<String, Member> updateMap = (HashMap<String, Member>) readFromStorage(DbType.MEMBERS);
 		if (updateMap != null) {
 			if (updateMap.containsKey(m.getMemberId())) {
-				updateMap.put(m.getMemberId(), m);
 				saveNewMember(m);
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	@Override
 	public List<CheckoutRecord> searchMember(String id) {
+		@SuppressWarnings("unchecked")
 		HashMap<String, CheckoutRecord> checkoutRecord = (HashMap<String, CheckoutRecord>) readFromStorage(DbType.CHECKOUTRECORD);
 		List<CheckoutRecord> chkRecords = new ArrayList<CheckoutRecord>();
 		for (CheckoutRecord record : checkoutRecord.values()) {
@@ -204,6 +188,7 @@ public class DataAccessFacade implements DataAccess {
 	}
 
 	// checkout
+	@SuppressWarnings("unchecked")
 	@Override
 	public HashMap<String, CheckoutRecord> readCheckoutRecordMap() {
 		return (HashMap<String, CheckoutRecord>) readFromStorage(DbType.CHECKOUTRECORD);
@@ -224,6 +209,7 @@ public class DataAccessFacade implements DataAccess {
 
 	@Override
 	public boolean returnBook(String id) {
+		@SuppressWarnings("unchecked")
 		HashMap<String, CheckoutRecord> bookMap = (HashMap<String, CheckoutRecord>) readFromStorage(DbType.CHECKOUTRECORD);
 		for (CheckoutRecord record : bookMap.values()) {
 			if (record.getBook().getId().equals(id)) {
@@ -237,7 +223,7 @@ public class DataAccessFacade implements DataAccess {
 					saveCheckoutRecord(record);
 				} else {
 					// calculate fine
-//TODO
+					//TODO
 					System.out.println("Book is overdue, cannot checkout without fine!");
 				}
 			}

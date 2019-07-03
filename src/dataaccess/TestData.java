@@ -17,7 +17,7 @@ public class TestData {
 	public static void main(String[] args) {
 		DataAccessFacade daf = new DataAccessFacade();
 		
-//		// User
+		// User
 //		User user1 = new User("john", "123", AccessLevel.LIBRARIAN);
 //		User user2 = new User("mike", "123", AccessLevel.ADMINISTRATOR);
 //		User user3 = new User("bob", "123", AccessLevel.BOTH);
@@ -28,6 +28,7 @@ public class TestData {
 //		for (User entries : users.values()) {
 //			System.out.println(entries.toString());
 //		}
+//		System.out.println();
 //
 //		// Member
 //		List<Member> members = new ArrayList<Member>();
@@ -54,6 +55,7 @@ public class TestData {
 //		for (Member entry : result.values()) {
 //			System.out.println(entry.toString());
 //		}
+//		System.out.println();
 //
 ////		member = new Member("Honhang", "Lu", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"), "12345567", "100");
 ////		System.out.println(daf.updateMembers(member));
@@ -100,7 +102,8 @@ public class TestData {
 //		for (Book entry : result3.values()) {
 //			System.out.println(entry.toString());
 //		}
-//
+//		System.out.println();
+//		
 //		// checkout record
 //		CheckoutRecord checkoutRecord1 = new CheckoutRecord(member1, book1);
 //		CheckoutRecord checkoutRecord2 = new CheckoutRecord(member1, book5);
@@ -123,20 +126,23 @@ public class TestData {
 //		for (CheckoutRecord entries : result4.values()) {
 //			System.out.println(entries.toString());
 //		}
+//		System.out.println();
 		
 //		List<CheckoutRecord> records = daf.searchMember("103");
 //		for (CheckoutRecord r : records) {
 //			System.out.println(r.toString());
 //		}
+//		System.out.println();
 //		
-//		daf.addCopy("23-11451", 5);
-//		HashMap<String, Book> result5 = (HashMap<String, Book>) daf.readBooksMap();
-//		for (Book entry : result5.values()) {
-//			System.out.println(entry.toString());
-//		}
+		daf.addCopy("23-11451", 5);
+		HashMap<String, Book> result5 = (HashMap<String, Book>) daf.readBooksMap();
+		for (Book entry : result5.values()) {
+			System.out.println(entry.toString());
+		}
+		System.out.println();
 		
-		System.out.println(daf.userLogin("john", "123"));
-		System.out.println(daf.userLogin("mike", "321"));
-		System.out.println(daf.userLogin("bob", "123"));
+//		System.out.println(daf.userLogin("john", "123"));
+//		System.out.println(daf.userLogin("mike", "321"));
+//		System.out.println(daf.userLogin("bob", "123"));
 	}
 }
