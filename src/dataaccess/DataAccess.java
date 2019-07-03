@@ -30,6 +30,8 @@ public interface DataAccess {
 	public void saveNewMember(Member member);
 	
 	public List<CheckoutRecord> searchMember(String id);
+	
+	public Member srcMember(String id);
 
 	// book
 	public HashMap<String, Book> getBooks();

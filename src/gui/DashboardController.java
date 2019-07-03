@@ -74,6 +74,18 @@ public class DashboardController{
 	}
 	
 	
+	public  void editMemberEvent() throws IOException {
+		System.out.println("EditMember clicked");
+		
+		EditMember.INSTANCE.init(Root.rootStage());
+		EditMember.INSTANCE.showAndWait();
+		
+	}
+	
+	
+	
+	
+	
 //	public  void addMemberEvent() throws IOException {
 //		System.out.println("addMemberEvent clicked");
 //		

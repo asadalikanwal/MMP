@@ -54,6 +54,12 @@ public class TestData {
 //			System.out.println(entry.toString());
 //		}
 //		System.out.println();
+		HashMap<String, Member> result = (HashMap<String, Member>) daf.getMembers();
+		for (Member entry : result.values()) {
+			System.out.println(entry.toString());
+		}
+		Member m = daf.srcMember("102");
+		System.out.println(m);
 //
 ////		member = new Member("Honhang", "Lu", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"), "12345567", "100");
 ////		System.out.println(daf.updateMembers(member));

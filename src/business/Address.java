@@ -38,7 +38,7 @@ public class Address implements Serializable {
 		return sb.append(street).append(":").
 				append(city).append(":").
 				append(zip).append(":").
-				append(state).append(":").
+				append(state).
 				toString(); 
 	}
 }

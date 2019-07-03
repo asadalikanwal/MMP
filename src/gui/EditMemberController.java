@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 
-public class AddMemberController {
+public class EditMemberController {
 
 	@FXML
 	private TextField fxFirstName;
@@ -57,7 +57,13 @@ public class AddMemberController {
 	private Label fxTelError;
 
 	@FXML
-	void addMemberClick(ActionEvent event) {
+	private TextField fxMemberID;
+	
+	@FXML
+	private Label fxMemberIDError;
+
+	@FXML
+	void EditMemberClick(ActionEvent event) {
 
 		// Form Validations
 		boolean firstName = Validation.isValid(fxFirstName.getText(), "String", fxFirstNameError);
@@ -74,21 +80,57 @@ public class AddMemberController {
 
 		DataAccessFacade daf = new DataAccessFacade();
 
-		Address address = new Address(fxStreet.getText(), fxCity.getText(), fxZip.getText(), fxState.getText());
-		Member member = new Member(fxFirstName.getText(), fxLastName.getText(), address, fxTel.getText());
+//		Address address = new Address(fxStreet.getText(), fxCity.getText(), fxZip.getText(), fxState.getText());
+//		Member member = new Member(fxFirstName.getText(), fxLastName.getText(), address, fxTel.getText());
+		
+		Member member = daf.srcMember(fxMemberID.getText());
 
-		daf.saveNewMember(member);
-		AddMember.INSTANCE.hide();
 
-    	HashMap<String, Member> result = (HashMap<String, Member>) daf.getMembers();
+		daf.updateMembers(member);
+		EditMember.INSTANCE.hide();
+
+		HashMap<String, Member> result = (HashMap<String, Member>) daf.getMembers();
 		for (Member entry : result.values()) {
 			System.out.println(entry.toString());
 		}
 	}
+	
+	@FXML
+    void searchMember(ActionEvent event) {
+		boolean memberCheck = Validation.isValid(fxMemberID.getText(), "Number", fxMemberIDError);
+		
+		if (!memberCheck) {
+			return;
+		}
+		
+		System.out.println("Search Member : "+fxMemberID.getText());
+		
+		DataAccessFacade daf = new DataAccessFacade();
+		Member member = daf.srcMember(fxMemberID.getText());
+
+		if(member == null) {
+			fxMemberIDError.setText("Invalid Member ID");
+			fxMemberIDError.setVisible(true);
+			System.out.println("Data: "+member);
+		} else {
+			fxMemberIDError.setVisible(false);
+		}
+		
+		fxFirstName.setText(member.getFirstName());
+		fxLastName.setText(member.getLastName());
+		fxStreet.setText(member.getAddress().getStreet());
+		fxCity.setText(member.getAddress().getCity());
+		fxState.setText(member.getAddress().getState());
+		fxZip.setText(member.getAddress().getZip());
+		fxTel.setText(member.getPhoneNumber());
+		
+		
+    }
 
 	public void init() {
-//		AddMember.INSTANCE.setMaximized(true);
-		AddMember.INSTANCE.setTitle("Add Member");
+		System.out.println("Edit init");
+//		EditMember.INSTANCE.setMaximized(true);
+		EditMember.INSTANCE.setTitle("Edit Member");
 
 	}
 }

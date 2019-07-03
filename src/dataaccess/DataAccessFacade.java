@@ -201,6 +201,7 @@ public class DataAccessFacade implements DataAccess {
 
 	@Override
 	public void saveNewMember(Member member) {
+		defaulId += (members == null) ? 0 : members.size();
 		member.setMemberId(String.valueOf(defaulId++));
 		writeToStorage(DbType.MEMBERS, member);
 		getMembers();
@@ -216,6 +217,16 @@ public class DataAccessFacade implements DataAccess {
 			}
 		}
 		return false;
+	}
+	
+	public Member srcMember(String id) {
+		HashMap<String, Member> member = getMembers();
+		for (Member record : member.values()) {
+			if (record.getMemberId().equals(id)) {
+				 return record;
+			}
+		}
+		return null;
 	}
 
 	@Override
