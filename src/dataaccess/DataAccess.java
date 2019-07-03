@@ -21,7 +21,7 @@ public interface DataAccess {
 	// member
 	public HashMap<String, Member> readMemberMap();
 
-	public boolean updateMembers(Member member);
+	public boolean updateMembers(Member member, String id);
 
 	public void saveNewMember(Member member);
 	

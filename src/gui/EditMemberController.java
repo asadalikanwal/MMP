@@ -68,7 +68,7 @@ public class EditMemberController {
 		// Form Validations
 		boolean firstName = Validation.isValid(fxFirstName.getText(), "String", fxFirstNameError);
 		boolean lastName = Validation.isValid(fxLastName.getText(), "String", fxLastNameError);
-		boolean street = Validation.isValid(fxStreet.getText(), "String", fxStreetError);
+		boolean street = Validation.isValid(fxStreet.getText(), "Address", fxStreetError);
 		boolean city = Validation.isValid(fxCity.getText(), "String", fxCityError);
 		boolean state = Validation.isValid(fxState.getText(), "String", fxStateError);
 		boolean zip = Validation.isValid(fxZip.getText(), "Number", fxZipError);
@@ -80,16 +80,16 @@ public class EditMemberController {
 
 		DataAccessFacade daf = new DataAccessFacade();
 
-//		Address address = new Address(fxStreet.getText(), fxCity.getText(), fxZip.getText(), fxState.getText());
-//		Member member = new Member(fxFirstName.getText(), fxLastName.getText(), address, fxTel.getText());
+		Address address = new Address(fxStreet.getText(), fxCity.getText(), fxZip.getText(), fxState.getText());
+		Member member = new Member(fxFirstName.getText(), fxLastName.getText(), address, fxTel.getText());
 		
-		Member member = daf.srcMember(fxMemberID.getText());
+//		Member member = daf.srcMember(fxMemberID.getText());
 
 
-		daf.updateMembers(member);
+		daf.updateMembers(member, fxMemberID.getText());
 		EditMember.INSTANCE.hide();
 
-		HashMap<String, Member> result = (HashMap<String, Member>) daf.getMembers();
+		HashMap<String, Member> result = (HashMap<String, Member>) daf.readMemberMap();
 		for (Member entry : result.values()) {
 			System.out.println(entry.toString());
 		}
@@ -112,6 +112,7 @@ public class EditMemberController {
 			fxMemberIDError.setText("Invalid Member ID");
 			fxMemberIDError.setVisible(true);
 			System.out.println("Data: "+member);
+			return;
 		} else {
 			fxMemberIDError.setVisible(false);
 		}

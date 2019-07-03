@@ -73,31 +73,26 @@ public class DataAccessFacade implements DataAccess {
 	static void writeToStorage(DbType type, Object ob) {
 		ObjectOutputStream out = null;
 		try {
-			Object temp = readFromStorage(type);
 			if (type == DbType.MEMBERS) {
-				@SuppressWarnings("unchecked")
-				HashMap<String, Member> map = (temp != null) ? (HashMap<String, Member>)temp : new HashMap<String, Member>();
+				HashMap<String, Member> map = (members != null) ? (HashMap<String, Member>)members : new HashMap<String, Member>();
 				Member member = (Member) ob;
 				map.put(member.getMemberId(), member);
 				ob = map;
 				members = map;
 			} else if (type == DbType.BOOKS) {
-				@SuppressWarnings("unchecked")
-				HashMap<String, Book> map = (temp != null) ? (HashMap<String, Book>)temp : new HashMap<String, Book>();
+				HashMap<String, Book> map = (books != null) ? (HashMap<String, Book>)books : new HashMap<String, Book>();
 				Book book = (Book) ob;
 				map.put(book.getId(), book);
 				ob = map;
 				books = map;
 			} else if (type == DbType.USERS) {
-				@SuppressWarnings("unchecked")
-				HashMap<String, User> map = (temp != null) ? (HashMap<String, User>)temp : new HashMap<String, User>();
+				HashMap<String, User> map = (users != null) ? (HashMap<String, User>)users : new HashMap<String, User>();
 				User user = (User) ob;
 				map.put(user.getUsername(), user);
 				ob = map;
 				users = map;
 			} else if (type == DbType.CHECKOUTRECORD) {
-				@SuppressWarnings("unchecked")
-				HashMap<String, CheckoutRecord> map = (temp != null) ? (HashMap<String, CheckoutRecord>)temp : new HashMap<String, CheckoutRecord>();
+				HashMap<String, CheckoutRecord> map = (checkoutRecords != null) ? (HashMap<String, CheckoutRecord>)checkoutRecords : new HashMap<String, CheckoutRecord>();
 				CheckoutRecord record = (CheckoutRecord) ob;
 				map.put(record.getRecordId(), record);
 				ob = map;
@@ -202,16 +197,18 @@ public class DataAccessFacade implements DataAccess {
 
 	@Override
 	public void saveNewMember(Member member) {
-		member.setMemberId(String.format("1%06d", defaulId));
+		if (member.getMemberId() == null)
+			member.setMemberId(String.format("1%06d", defaulId));
 		writeToStorage(DbType.MEMBERS, member);
 		getMembers();
 	}
 
 	@Override
-	public boolean updateMembers(Member m) {
+	public boolean updateMembers(Member m, String id) {
 		HashMap<String, Member> updateMap = getMembers();
 		if (updateMap != null) {
-			if (updateMap.containsKey(m.getMemberId())) {
+			if (updateMap.containsKey(id)) {
+				m.setMemberId(id);
 				saveNewMember(m);
 				return true;
 			}

@@ -77,10 +77,10 @@ public class AddMemberController {
 		Address address = new Address(fxStreet.getText(), fxCity.getText(), fxZip.getText(), fxState.getText());
 		Member member = new Member(fxFirstName.getText(), fxLastName.getText(), address, fxTel.getText());
 
-		daf.saveNewMember(member);
+		//daf.saveNewMember(member);
 		AddMember.INSTANCE.hide();
 
-    	HashMap<String, Member> result = (HashMap<String, Member>) daf.getMembers();
+    	HashMap<String, Member> result = (HashMap<String, Member>) daf.readMemberMap();
 		for (Member entry : result.values()) {
 			System.out.println(entry.toString());
 		}
