@@ -82,6 +82,10 @@ public class DashboardController{
 		
 	}
 	
+	public void addBookCopyEvent()  throws IOException {
+		AddBookCopy.INSTANCE.init(Root.rootStage());
+		AddBookCopy.INSTANCE.showAndWait();
+	}
 	
 //	public  void addBookEvent() throws IOException {
 //		System.out.println("addMemberEvent clicked");
