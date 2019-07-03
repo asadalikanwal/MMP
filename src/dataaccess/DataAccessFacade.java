@@ -24,11 +24,11 @@ public class DataAccessFacade implements DataAccess {
 
 	public static final String OUTPUT_DIR = System.getProperty("user.dir") + "//src//dataaccess//storage";
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
-	private HashMap<String, Book> books;
-	private HashMap<String, CheckoutRecord> checkoutRecords;
-	private HashMap<String, User> users;
-	private HashMap<String, Member> members;
-	private int defaulId = 100;
+	private static HashMap<String, Book> books;
+	private static HashMap<String, CheckoutRecord> checkoutRecords;
+	private static HashMap<String, User> users;
+	private static HashMap<String, Member> members;
+	private int defaulId;
 	
 	public DataAccessFacade() {
 		getBooks();
@@ -38,8 +38,7 @@ public class DataAccessFacade implements DataAccess {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
-	public HashMap<String, Book> getBooks() {
+	private HashMap<String, Book> getBooks() {
 		if (books == null) {
 			books = (HashMap<String, Book>) readFromStorage(DbType.BOOKS);
 		}
@@ -47,8 +46,7 @@ public class DataAccessFacade implements DataAccess {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
-	public HashMap<String, User> getUsers() {
+	private HashMap<String, User> getUsers() {
 		if (users == null) {
 			users = (HashMap<String, User>) readFromStorage(DbType.USERS);
 		}
@@ -56,17 +54,16 @@ public class DataAccessFacade implements DataAccess {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public HashMap<String, Member> getMembers() {
+	private HashMap<String, Member> getMembers() {
 		if (members == null) {
 			members = (HashMap<String, Member>) readFromStorage(DbType.MEMBERS);
-		}
+		} 
+		defaulId = members == null ? 0 : members.size();
 		return members;
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
-	public HashMap<String, CheckoutRecord> getCheckoutRecords() {
+	private HashMap<String, CheckoutRecord> getCheckoutRecords() {
 		if (checkoutRecords == null) {
 			checkoutRecords = (HashMap<String, CheckoutRecord>) readFromStorage(DbType.CHECKOUTRECORD);
 		}
@@ -83,24 +80,28 @@ public class DataAccessFacade implements DataAccess {
 				Member member = (Member) ob;
 				map.put(member.getMemberId(), member);
 				ob = map;
+				members = map;
 			} else if (type == DbType.BOOKS) {
 				@SuppressWarnings("unchecked")
 				HashMap<String, Book> map = (temp != null) ? (HashMap<String, Book>)temp : new HashMap<String, Book>();
 				Book book = (Book) ob;
 				map.put(book.getId(), book);
 				ob = map;
+				books = map;
 			} else if (type == DbType.USERS) {
 				@SuppressWarnings("unchecked")
 				HashMap<String, User> map = (temp != null) ? (HashMap<String, User>)temp : new HashMap<String, User>();
 				User user = (User) ob;
 				map.put(user.getUsername(), user);
 				ob = map;
+				users = map;
 			} else if (type == DbType.CHECKOUTRECORD) {
 				@SuppressWarnings("unchecked")
 				HashMap<String, CheckoutRecord> map = (temp != null) ? (HashMap<String, CheckoutRecord>)temp : new HashMap<String, CheckoutRecord>();
 				CheckoutRecord record = (CheckoutRecord) ob;
 				map.put(record.getRecordId(), record);
 				ob = map;
+				checkoutRecords = map;
 			}
 			
 			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, type.toString());
@@ -201,8 +202,7 @@ public class DataAccessFacade implements DataAccess {
 
 	@Override
 	public void saveNewMember(Member member) {
-		defaulId += (members == null) ? 0 : members.size();
-		member.setMemberId(String.valueOf(defaulId++));
+		member.setMemberId(String.format("1%06d", defaulId));
 		writeToStorage(DbType.MEMBERS, member);
 		getMembers();
 	}
