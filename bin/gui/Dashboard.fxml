@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="gui.DashboardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DashboardController">
   <center>
     <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
@@ -45,25 +48,19 @@
   <top>
     <MenuBar fx:id="myMenuBar" BorderPane.alignment="CENTER">
       <menus>
-        <Menu mnemonicParsing="false" text="Member" fx:id="mnuMember">
+        <Menu fx:id="menuMember" mnemonicParsing="false" text="Member">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#addMemberEvent" text="Add Member" />
-            <MenuItem mnemonicParsing="false" text="Member List" />
+            <MenuItem mnemonicParsing="false" text="Edit Member" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Author">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Add Author" />
-            <MenuItem mnemonicParsing="false" text="Author List" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Book">
+        <Menu fx:id="menuBook" mnemonicParsing="false" text="Book">
           <items>
             <MenuItem mnemonicParsing="false" text="Add Book" />
             <MenuItem mnemonicParsing="false" text="Add Copy" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Checkout Book" />
+        <Menu fx:id="menuCheckout" mnemonicParsing="false" text="Checkout Book" />
       </menus>
     </MenuBar>
   </top>

@@ -30,7 +30,7 @@ public class DataAccessFacade implements DataAccess {
 	private HashMap<String, Member> members;
 	private int defaulId = 100;
 	
-	DataAccessFacade() {
+	public DataAccessFacade() {
 		getBooks();
 		getUsers();
 		getMembers();

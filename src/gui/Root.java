@@ -2,19 +2,27 @@ package gui;
 
 import java.io.IOException;
 
+import business.AccessLevel;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Root extends Application {
 	
 	private static Stage rootStage = null;
 	private LoginController loginController;
+	private static AccessLevel userRole;
 
 	public static Stage rootStage() {
 		return rootStage;
+	}
+	
+	public static AccessLevel getUserRole() {
+		return userRole;
+	}
+	
+	public static void setUserRole(AccessLevel accessLevel) {
+		userRole = accessLevel;
 	}
 	
 	public static void main(String[] args) {
