@@ -83,6 +83,24 @@ public class DashboardController{
 	}
 	
 	
+//	public  void addBookEvent() throws IOException {
+//		System.out.println("addMemberEvent clicked");
+//		
+//		AddBook.INSTANCE.init(Root.rootStage());
+//		AddBook.INSTANCE.showAndWait();
+//		
+//	}
+	
+	
+//	public  void addBookCopyEvent() throws IOException {
+//	System.out.println("addMemberEvent clicked");
+//	
+//	AddBookCopy.INSTANCE.init(Root.rootStage());
+//	AddBookCopy.INSTANCE.showAndWait();
+//	
+//}
+
+	
 	
 	
 	
