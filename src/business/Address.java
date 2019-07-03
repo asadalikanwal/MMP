@@ -31,4 +31,14 @@ public class Address implements Serializable {
 	public String getState() {
 		return state;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		return sb.append(street).append(":").
+				append(city).append(":").
+				append(zip).append(":").
+				append(state).append(":").
+				toString(); 
+	}
 }

@@ -33,26 +33,24 @@ public class TestData {
 //		// Member
 //		List<Member> members = new ArrayList<Member>();
 //		Member member1 = new Member("Jepeng", "Gao", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"12345567", "100");
+//				"12345567");
 //		Member member2 = new Member("Ali", "Mohammed", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"12345567", "101");
+//				"12345567");
 //		Member member3 = new Member("Asad", "Ali", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"12345567", "102");
+//				"12345567");
 //		Member member4 = new Member("Zayed", "Hussain", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"12345567", "103");
-//		Member member5 = new Member("Saju", "Ahmad", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"12345567", "104");
+//				"12345567");
 //		members.add(member1);
 //		members.add(member2);
 //		members.add(member3);
 //		members.add(member4);
-//		members.add(member5);
 //		for (Member member : members) {
 //			daf.saveNewMember(member);
 //		}
 //
 //		HashMap<String, Member> result = (HashMap<String, Member>) daf.readMemberMap();
 //		for (Member entry : result.values()) {
+//			System.out.println("here");
 //			System.out.println(entry.toString());
 //		}
 //		System.out.println();
@@ -134,15 +132,15 @@ public class TestData {
 //		}
 //		System.out.println();
 //		
-		daf.addCopy("23-11451", 5);
-		HashMap<String, Book> result5 = (HashMap<String, Book>) daf.readBooksMap();
-		for (Book entry : result5.values()) {
-			System.out.println(entry.toString());
-		}
-		System.out.println();
-		
-//		System.out.println(daf.userLogin("john", "123"));
-//		System.out.println(daf.userLogin("mike", "321"));
-//		System.out.println(daf.userLogin("bob", "123"));
+//		daf.addCopy("23-11451", 5);
+//		HashMap<String, Book> result5 = (HashMap<String, Book>) daf.readBooksMap();
+//		for (Book entry : result5.values()) {
+//			System.out.println(entry.toString());
+//		}
+//		System.out.println();
+//		
+//		System.out.println(daf.userLogin("john", "123").toString());
+//		System.out.println(daf.userLogin("mike", "321").toString());
+//		System.out.println(daf.userLogin("bob", "123").toString());
 	}
 }

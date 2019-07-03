@@ -14,9 +14,6 @@ public class Person implements Serializable{
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	public String getFirstName() {
 		return firstName;
 	}

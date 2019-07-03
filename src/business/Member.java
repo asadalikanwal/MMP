@@ -1,7 +1,6 @@
 package business;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +9,8 @@ public class Member extends Person implements Serializable {
 	private String memberId;
 	private List<CheckoutRecord> checkoutRecords;
 	
-	public Member(String firstName, String lastName, Address address, String phoneNumber, String memberId) {
+	public Member(String firstName, String lastName, Address address, String phoneNumber) {
 		super(firstName, lastName, address, phoneNumber);
-		this.memberId = memberId;
 		checkoutRecords = new ArrayList<CheckoutRecord>();
 	}
 
@@ -24,6 +22,10 @@ public class Member extends Person implements Serializable {
 		return memberId;
 	}
 	
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
 	public List<CheckoutRecord> getCheckoutRecords() {
 		return checkoutRecords;
 	}
@@ -34,6 +36,11 @@ public class Member extends Person implements Serializable {
 
 	@Override
 	public String toString() {
-		return super.getFirstName() + ", " + super.getLastName();
+		StringBuilder sb = new StringBuilder();
+		return sb.append(super.getFirstName()).append(":").
+				append(super.getLastName()).append(":").
+				append(super.getAddress()).append(":").
+				append(super.getPhoneNumber()).append(":").
+				append(memberId).toString();
 	}	
 }

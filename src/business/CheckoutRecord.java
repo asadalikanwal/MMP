@@ -44,6 +44,11 @@ public class CheckoutRecord implements Serializable {
 	}
 
 	public String toString() {
-		return member + " : " +book;
+		StringBuilder sb = new StringBuilder();
+		return sb.append(getMember()).append(":").
+				append(getBook()).append(":").
+				append(getDueDate()).append(":").
+				append(returnStatus).append(":").
+				append(recordId).toString();
 	}
 }

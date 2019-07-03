@@ -23,6 +23,8 @@ public class User implements Serializable {
 	}
 	
 	public String toString() {
-		return username + ", " + accessLevel;
+		StringBuilder sb = new StringBuilder();
+		return sb.append(username).append(":").
+				append(accessLevel.toString()).toString();
 	}
 }

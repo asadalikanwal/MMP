@@ -67,10 +67,18 @@ public class Book implements Serializable {
 	}
 	
 	public String toString() {
-		String string = "";
+		StringBuilder sb = new StringBuilder();
+		String auth = "";
 		for (Author author : authors) {
-			string += author.getFirstName() +", "+ author.getLastName();
+			auth += author.getFirstName() + " " + author.getLastName() + ",";
 		}
-		return title + "'s author is " + string + ", total copy is " + totalNumOfCopy;
+		auth = auth.substring(0, auth.length()-1);
+		return sb.append(title).append(":").
+				append(auth).append(":").
+				append(isbn).append(":").
+				append(numberOfCopy).append(":").
+				append(totalNumOfCopy).append(":").
+				append(maxCheckoutLength).append(":").
+				append(id).toString();
 	}
 }
