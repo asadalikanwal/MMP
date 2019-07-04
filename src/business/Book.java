@@ -2,6 +2,9 @@ package business;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import sun.awt.www.content.audio.x_aiff;
 
 public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -38,6 +41,17 @@ public class Book implements Serializable {
 		return authors;
 	}
 
+	public String getAuthorsList() {
+		List<Author> authorList = getAuthors();
+		String authors = "";
+		for (Author author : authorList) {
+			authors += author.getFirstName() + " " + author.getLastName() + ", ";
+		}
+		if (!authors.isEmpty())
+			authors = authors.substring(0, authors.length() - 1);
+		return authors;
+	}
+
 	public boolean isAvailability() {
 		return availability;
 	}
@@ -45,15 +59,15 @@ public class Book implements Serializable {
 	public int getNumberOfCopy() {
 		return numberOfCopy;
 	}
-	
+
 	public int getTotalNumOfCopy() {
 		return totalNumOfCopy;
 	}
-	
+
 	public void setTotalNumOfCopy(int totalNumOfCopy) {
 		this.totalNumOfCopy = totalNumOfCopy;
 	}
-	
+
 	public void setNumberOfCopy(int numberOfCopy) {
 		this.numberOfCopy = numberOfCopy;
 	}
@@ -65,20 +79,16 @@ public class Book implements Serializable {
 	public String getId() {
 		return id;
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		String auth = "";
 		for (Author author : authors) {
 			auth += author.getFirstName() + " " + author.getLastName() + ",";
 		}
-		auth = auth.substring(0, auth.length()-1);
-		return sb.append(title).append(":").
-				append(auth).append(":").
-				append(isbn).append(":").
-				append(numberOfCopy).append(":").
-				append(totalNumOfCopy).append(":").
-				append(maxCheckoutLength).append(":").
-				append(id).toString();
+		auth = auth.substring(0, auth.length() - 1);
+		return sb.append(title).append(":").append(auth).append(":").append(isbn).append(":").append(numberOfCopy)
+				.append(":").append(totalNumOfCopy).append(":").append(maxCheckoutLength).append(":").append(id)
+				.toString();
 	}
 }

@@ -140,7 +140,7 @@ public class DashboardController {
 		tbBookId.setCellValueFactory(new PropertyValueFactory<Book, String>("id"));
 		tbBookTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
 		tbBookISBN.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
-		tbBookAuthors.setCellValueFactory(new PropertyValueFactory<Book, String>("authors"));
+		tbBookAuthors.setCellValueFactory(new PropertyValueFactory<Book, String>("authorsList"));
 		tbBookAvailability.setCellValueFactory(new PropertyValueFactory<Book, String>("availability"));
 		tbBookAvailableCopy.setCellValueFactory(new PropertyValueFactory<Book, String>("numberOfCopy"));
 		tbBookTotalCopy.setCellValueFactory(new PropertyValueFactory<Book, String>("totalNumOfCopy"));
