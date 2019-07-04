@@ -19,19 +19,19 @@ public class CheckoutRecord implements Serializable {
 		returnStatus = false;
 		recordId = member.getMemberId() + book.getId();
 	}
-	
 
 	public Member getMember() {
 		return member;
 	}
-	
+
 	public String getRecordId() {
 		return recordId;
 	}
+
 	public Book getBook() {
 		return book;
 	}
-	
+
 	public boolean isReturnStatus() {
 		return returnStatus;
 	}
@@ -66,10 +66,7 @@ public class CheckoutRecord implements Serializable {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		return sb.append(getMember()).append(":").
-				append(getBook()).append(":").
-				append(getDueDate()).append(":").
-				append(returnStatus).append(":").
-				append(recordId).toString();
+		return sb.append(getMember()).append(":").append(getBook()).append(":").append(getDueDate()).append(":")
+				.append(returnStatus).append(":").append(recordId).toString();
 	}
 }

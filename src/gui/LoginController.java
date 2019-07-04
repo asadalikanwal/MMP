@@ -30,8 +30,6 @@ public class LoginController {
 	}
 
 	public void loginButtonClicked() {
-		System.out.println("Logged in!" + username.getText());
-
 		DataAccessFacade daf = new DataAccessFacade();
 		AccessLevel roleString = daf.userLogin(username.getText(), password.getText());
 		if (roleString.equals(AccessLevel.NONE)) {
@@ -41,12 +39,8 @@ public class LoginController {
 		}
 
 		Root.setUserRole(roleString);
-		System.out.println("roleString: " + roleString);
-
 		Dashboard.INSTANCE.init(Root.rootStage());
 		Dashboard.INSTANCE.show();
 		Login.INSTANCE.hide();
-		// currentStage.showMainScreen();
-
 	}
 }

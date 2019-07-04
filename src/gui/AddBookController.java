@@ -19,7 +19,6 @@ import javafx.scene.control.Label;
 
 public class AddBookController {
 	public List<Author> authors = new ArrayList<>();
-	
 
 	@FXML
 	private Label fxAvailabilityError;
@@ -50,73 +49,56 @@ public class AddBookController {
 
 	@FXML
 	private TextField fxCopy;
-	
+
 	@FXML
 	private Label fxAuthorsList;
-	
-	
+
 	@FXML
-    private Button fxAddBookButton;
-	
+	private Button fxAddBookButton;
+
 	@FXML
 	void AddBookClick(ActionEvent event) {
-		
-//		String authorListStr = "";
-		for (Author a : authors) {
-//			authorListStr += (a.getFirstName() + " " + a.getLastName() + ", ");
-			System.out.println(a.toString());
-		}
-//		authorListStr = authorListStr.length() > 0 ? authorListStr.substring(0, authorListStr.length()-2) : "";
-//		fxAuthorsList.setText(authorListStr);
-		
+
 		// Form Validations
 		boolean title = Validation.isValid(fxTitle.getText(), "String", fxTitleError);
 		boolean iSBN = Validation.isValid(fxISBN.getText(), "String", fxISBNError);
-		//boolean availability = Validation.isValid(fxAvailability.getText(), "String", fxAvailabilityError);
+		// boolean availability = Validation.isValid(fxAvailability.getText(), "String",
+		// fxAvailabilityError);
 		boolean copy = Validation.isValid(fxCopy.getText(), "Number", fxCopyError);
 		boolean duration = Validation.isValid(fxDuration.getText(), "Number", fxDurationError);
 
-		if (!title || !iSBN || !copy || !duration ) {
+		if (!title || !iSBN || !copy || !duration) {
 			return;
 		}
 
 		DataAccessFacade daf = new DataAccessFacade();
-		
-		Book book = new Book(fxTitle.getText(), fxISBN.getText(), authors, true, Integer.parseInt(fxCopy.getText()), Integer.parseInt(fxDuration.getText()) );
+
+		Book book = new Book(fxTitle.getText(), fxISBN.getText(), authors, true, Integer.parseInt(fxCopy.getText()),
+				Integer.parseInt(fxDuration.getText()));
 
 		daf.saveNewBook(book);
 
-		
-		System.out.println("Book successfully Added");
 		Dashboard.INSTANCE.Controller.init();
 		AddBook.INSTANCE.hide();
-//		Stage stage = (Stage)fxAddBookButton.getScene().getWindow();
-//		stage.close();
-		
+
 	}
-	
-	
+
 	public void updateAuthorList() {
 		String authorListStr = "";
 		for (Author a : authors) {
 			authorListStr += (a.getFirstName() + " " + a.getLastName() + ", ");
-			System.out.println(a.toString());
 		}
-		authorListStr = authorListStr.length() > 0 ? authorListStr.substring(0, authorListStr.length()-2) : "";
+		authorListStr = authorListStr.length() > 0 ? authorListStr.substring(0, authorListStr.length() - 2) : "";
 		fxAuthorsList.setText(authorListStr);
 		fxAuthorsList.setVisible(true);
 	}
-	
-	 @FXML
-    void addAuthor(ActionEvent event) throws IOException {
-		 //System.out.println("addAuthor clicked");
-		 AddAuthor addAuthor = new AddAuthor();
-//		 addAuthor.setController(this);
-//		 addAuthor.init(Root.rootStage());
-//		 addAuthor.showAndWait();
-		 AddAuthor.INSTANCE.init(Root.rootStage());
-		 AddAuthor.INSTANCE.showAndWait();
-    }
+
+	@FXML
+	void addAuthor(ActionEvent event) throws IOException {
+		AddAuthor addAuthor = new AddAuthor();
+		AddAuthor.INSTANCE.init(Root.rootStage());
+		AddAuthor.INSTANCE.showAndWait();
+	}
 
 	public void init() {
 		fxAuthorsList.setVisible(false);

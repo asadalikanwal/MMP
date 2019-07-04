@@ -22,10 +22,10 @@ public class CheckoutBookController {
 	DataAccessFacade daf = new DataAccessFacade();
 
 	@FXML
-	private TextField fxBookId;
+	private TextField fxMemberID;
 
 	@FXML
-	private TextField fxMemberID;
+	private TextField fxBookId;
 
 	@FXML
 	private Label fxMemberIDError;
@@ -64,12 +64,22 @@ public class CheckoutBookController {
 	void CheckoutBookEvent(ActionEvent event) {
 
 		CheckoutRecord record = new CheckoutRecord(member, book);
-		boolean checkout = daf.saveCheckoutRecord(record);
-		System.out.println("Checkout Book: " + checkout);
 
 		List<CheckoutRecord> records = daf.searchMember(member.getMemberId());
 
-		result.getItems().setAll(records);
+		for (CheckoutRecord rec : records) {
+			if (rec.getBook().getIsbn().equals(fxBookId.getText())) {
+				fxBookIdError.setText("This book is already issued for this member.");
+				fxBookIdError.setTextFill(javafx.scene.paint.Color.RED);
+				fxBookIdError.setVisible(true);
+				return;
+			}
+		}
+
+		boolean checkout = daf.saveCheckoutRecord(record);
+		List<CheckoutRecord> recordsNew = daf.searchMember(member.getMemberId());
+
+		result.getItems().setAll(recordsNew);
 		tbMemberId.setCellValueFactory(new PropertyValueFactory<CheckoutRecord, String>("memberID"));
 		tbMemberName.setCellValueFactory(new PropertyValueFactory<CheckoutRecord, String>("memberName"));
 		tbBookName.setCellValueFactory(new PropertyValueFactory<CheckoutRecord, String>("bookTitle"));
@@ -88,18 +98,25 @@ public class CheckoutBookController {
 		}
 
 		book = daf.searchBook(fxBookId.getText());
+		if (book != null) {
+			int availability = book.getNumberOfCopy();
+			if (availability < 1) {
+				fxBookIdError.setText("Book not available");
+				fxBookIdError.setTextFill(javafx.scene.paint.Color.RED);
+				fxBookIdError.setVisible(true);
+				return;
+			} else {
+				fxBookIdError.setText("Book Available: " + book.getTitle());
+				fxBookIdError.setTextFill(javafx.scene.paint.Color.GREEN);
+				fxBookIdError.setVisible(true);
+			}
+		}
 
 		if (book == null) {
 			fxBookIdError.setText("Book not available");
 			fxBookIdError.setTextFill(javafx.scene.paint.Color.RED);
 			fxBookIdError.setVisible(true);
-			System.out.println("Data: " + book);
 			return;
-		} else {
-			System.out.println("Search Book : " + book.toString());
-			fxBookIdError.setText("Book Available: " + book.getTitle());
-			fxBookIdError.setTextFill(javafx.scene.paint.Color.GREEN);
-			fxBookIdError.setVisible(true);
 		}
 
 		checkoutButtonEnable();
@@ -119,13 +136,10 @@ public class CheckoutBookController {
 		if (member == null) {
 			fxMemberIDError.setText("Member not found");
 			fxMemberIDError.setVisible(true);
-			System.out.println("Data: " + member);
+
 			return;
 		} else {
-			System.out.println("Search Member : " + member.toString());
-//			fxMemberIDError.setText("Member found: " + member.getFirstName() + " " + member.getLastName());
 			fxMemberIDError.setVisible(false);
-			System.out.println("Data: " + member);
 		}
 		checkoutButtonEnable();
 		populateTable();
@@ -146,10 +160,21 @@ public class CheckoutBookController {
 		tbStatus.setCellValueFactory(new PropertyValueFactory<CheckoutRecord, String>("returnStatus"));
 
 	}
-	
+
 	@FXML
 	void checkoutButtonEnable() {
-		if (daf.searchBook(fxBookId.getText()) == null || daf.srcMember(fxMemberID.getText()) == null) {
+		Book b = daf.searchBook(fxBookId.getText());
+		if (b != null) {
+			int availability = b.getNumberOfCopy();
+			if (availability < 1) {
+				fxCheckoutBttn.setDisable(true);
+				return;
+			} else {
+				fxCheckoutBttn.setDisable(false);
+			}
+		}
+
+		if (b == null || daf.srcMember(fxMemberID.getText()) == null) {
 			fxCheckoutBttn.setDisable(true);
 		} else {
 			fxCheckoutBttn.setDisable(false);
@@ -157,9 +182,8 @@ public class CheckoutBookController {
 	}
 
 	public void init() {
-		System.out.println("CheckoutBook init");
-//		CheckoutBook.INSTANCE.setMaximized(true);
 		CheckoutBook.INSTANCE.setTitle("Checkout Book");
+		fxMemberID.requestFocus();
 		fxCheckoutBttn.setDisable(true);
 
 	}

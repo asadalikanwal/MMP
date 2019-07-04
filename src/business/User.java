@@ -7,24 +7,27 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 	private AccessLevel accessLevel;
+
 	public User(String username, String password, AccessLevel accessLevel) {
 		this.username = username;
 		this.password = password;
 		this.accessLevel = accessLevel;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public AccessLevel getAccessLevel() {
 		return accessLevel;
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		return sb.append(username).append(":").
-				append(accessLevel.toString()).toString();
+		return sb.append(username).append(":").append(accessLevel.toString()).toString();
 	}
 }

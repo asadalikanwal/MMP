@@ -2,9 +2,6 @@ package business;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import sun.awt.www.content.audio.x_aiff;
 
 public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -48,7 +45,7 @@ public class Book implements Serializable {
 			authors += author.getFirstName() + " " + author.getLastName() + ", ";
 		}
 		if (!authors.isEmpty())
-			authors = authors.substring(0, authors.length() - 1);
+			authors = authors.substring(0, authors.length() - 2);
 		return authors;
 	}
 

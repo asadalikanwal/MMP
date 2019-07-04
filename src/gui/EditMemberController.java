@@ -58,7 +58,7 @@ public class EditMemberController {
 
 	@FXML
 	private TextField fxMemberID;
-	
+
 	@FXML
 	private Label fxMemberIDError;
 
@@ -82,44 +82,38 @@ public class EditMemberController {
 
 		Address address = new Address(fxStreet.getText(), fxCity.getText(), fxZip.getText(), fxState.getText());
 		Member member = new Member(fxFirstName.getText(), fxLastName.getText(), address, fxTel.getText());
-		
+
 //		Member member = daf.srcMember(fxMemberID.getText());
 
-
 		daf.updateMembers(member, fxMemberID.getText());
-		
-		
+
 		Dashboard.INSTANCE.Controller.init();
 		EditMember.INSTANCE.hide();
 
 		HashMap<String, Member> result = (HashMap<String, Member>) daf.readMemberMap();
 		for (Member entry : result.values()) {
-			System.out.println(entry.toString());
 		}
 	}
-	
+
 	@FXML
-    void searchMember(ActionEvent event) {
+	void searchMember(ActionEvent event) {
 		boolean memberCheck = Validation.isValid(fxMemberID.getText(), "Number", fxMemberIDError);
-		
+
 		if (!memberCheck) {
 			return;
 		}
-		
-		System.out.println("Search Member : "+fxMemberID.getText());
-		
+
 		DataAccessFacade daf = new DataAccessFacade();
 		Member member = daf.srcMember(fxMemberID.getText());
 
-		if(member == null) {
+		if (member == null) {
 			fxMemberIDError.setText("Invalid Member ID");
 			fxMemberIDError.setVisible(true);
-			System.out.println("Data: "+member);
 			return;
 		} else {
 			fxMemberIDError.setVisible(false);
 		}
-		
+
 		fxFirstName.setText(member.getFirstName());
 		fxLastName.setText(member.getLastName());
 		fxStreet.setText(member.getAddress().getStreet());
@@ -127,13 +121,10 @@ public class EditMemberController {
 		fxState.setText(member.getAddress().getState());
 		fxZip.setText(member.getAddress().getZip());
 		fxTel.setText(member.getPhoneNumber());
-		
-		
-    }
+
+	}
 
 	public void init() {
-		System.out.println("Edit init");
-//		EditMember.INSTANCE.setMaximized(true);
 		EditMember.INSTANCE.setTitle("Edit Member");
 
 	}

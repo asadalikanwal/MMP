@@ -8,6 +8,7 @@ import business.Member;
 import dataaccess.DataAccessFacade;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
@@ -88,11 +89,15 @@ public class DashboardController {
 	@FXML
 	private Menu menuCheckout;
 
+	@FXML
+	private Label fxLoggedInUser;
+
 	public void init() {
 		Dashboard.INSTANCE.setMaximized(true);
 		Dashboard.INSTANCE.setTitle("Library Management - Group 2");
-
-		System.out.println("Dashboard Controller" + Root.getUserRole());
+		
+		String roleString = Root.getUserRole().toString();
+		fxLoggedInUser.setText(roleString);
 
 		// Making all the menu visibility false
 		menuMember.setVisible(false);
@@ -149,34 +154,24 @@ public class DashboardController {
 	}
 
 	public void addMemberEvent() throws IOException {
-		System.out.println("addMemberEvent clicked");
-
 		AddMember.INSTANCE.init(Root.rootStage());
 		AddMember.INSTANCE.showAndWait();
 
 	}
 
 	public void editMemberEvent() throws IOException {
-		System.out.println("EditMember clicked");
-
 		EditMember.INSTANCE.init(Root.rootStage());
 		EditMember.INSTANCE.showAndWait();
 
 	}
 
 	public void addBookEvent() throws IOException {
-		System.out.println("addMemberEvent clicked");
-
-		
 		AddBook.INSTANCE.init(Root.rootStage());
 		AddBook.INSTANCE.showAndWait();
 
 	}
-	
 
 	public void addBookCopyEvent() throws IOException {
-		System.out.println("adBookCopyEvent clicked");
-
 		AddBookCopy.INSTANCE.init(Root.rootStage());
 		AddBookCopy.INSTANCE.showAndWait();
 
@@ -184,19 +179,19 @@ public class DashboardController {
 
 	@FXML
 	public void checkoutBookEvent(ActionEvent event) throws IOException {
-
-		System.out.println("Checkoutbook - clicked");
 		CheckoutBook.INSTANCE.init(Root.rootStage());
 		CheckoutBook.INSTANCE.showAndWait();
 
 	}
+	
+	@FXML
+	public void onExit(ActionEvent event) throws IOException {
+		System.exit(0);
+	}
+	
 
 	public void addAuthorEvent(ActionEvent event) throws IOException {
-
-		System.out.println("AddAuthor - clicked");
 		AddAuthor.INSTANCE.init(Root.rootStage());
 		AddAuthor.INSTANCE.showAndWait();
-
 	}
-
 }

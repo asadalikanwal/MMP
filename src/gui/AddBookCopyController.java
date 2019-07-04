@@ -39,7 +39,6 @@ public class AddBookCopyController {
 	@FXML
 	void addBookSearchClick(ActionEvent event) {
 
-		System.out.println("Book search clicked");
 		// Form Validations
 		boolean bookIsbn = Validation.isValid(fxBookIsbn.getText(), "String", fxBookIsbnErr);
 
@@ -96,6 +95,7 @@ public class AddBookCopyController {
 			fxCopy.setText(String.valueOf(newNo));
 			fxCopyNo.setText("");
 			fxCopyNoErr.setText("Operation Success");
+			Dashboard.INSTANCE.Controller.init();
 			return;
 		} else
 			fxCopyNoErr.setText("Operation Failed");
@@ -103,7 +103,6 @@ public class AddBookCopyController {
 	}
 
 	public void init() {
-//		AddMember.INSTANCE.setMaximized(true);
 		AddMember.INSTANCE.setTitle("Add Book Copy");
 	}
 }

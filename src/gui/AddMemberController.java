@@ -78,19 +78,12 @@ public class AddMemberController {
 		Member member = new Member(fxFirstName.getText(), fxLastName.getText(), address, fxTel.getText());
 
 		daf.saveNewMember(member);
-	
+
 		Dashboard.INSTANCE.Controller.init();
 		AddMember.INSTANCE.hide();
-
-//    	HashMap<String, Member> result = (HashMap<String, Member>) daf.readMemberMap();
-//		for (Member entry : result.values()) {
-//			System.out.println(entry.toString());
-//		}
 	}
 
 	public void init() {
-//		AddMember.INSTANCE.setMaximized(true);
 		AddMember.INSTANCE.setTitle("Add Member");
-
 	}
 }

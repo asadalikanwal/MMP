@@ -149,8 +149,8 @@ public class DataAccessFacade implements DataAccess {
 	public HashMap<String, Book> readBooksMap() {
 		return getBooks();
 	}
-	
-	public List<Book> readBookList(){
+
+	public List<Book> readBookList() {
 		HashMap<String, Book> books = getBooks();
 		List<Book> bookList = new ArrayList<Book>();
 		for (Book entry : books.values()) {
@@ -158,6 +158,7 @@ public class DataAccessFacade implements DataAccess {
 		}
 		return bookList;
 	}
+
 	@Override
 	public boolean addCopy(String isbn, int number) {
 		Book book = searchBook(isbn);
@@ -287,15 +288,12 @@ public class DataAccessFacade implements DataAccess {
 			if (record.getBook().getId().equals(id)) {
 				LocalDate todayDate = LocalDate.now();
 				if (todayDate.compareTo(record.getDueDate()) <= 0) {
-					// on time
 					record.setReturnStatus(true);
 					Book tempBook = record.getBook();
 					tempBook.setNumberOfCopy(tempBook.getNumberOfCopy() + 1);
 					saveNewBook(tempBook);
 					saveCheckoutRecord(record);
 				} else {
-					// calculate fine
-					// TODO
 					System.out.println("Book is overdue, cannot checkout without fine!");
 				}
 			}
