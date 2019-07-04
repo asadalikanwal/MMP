@@ -34,7 +34,7 @@
             <TextField fx:id="fxZip" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="fxTel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label text="Telephone No" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" onAction="#addAuthorClick" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Button fx:id="fxSaveButton" mnemonicParsing="false" onAction="#addAuthorClick" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <Label fx:id="fxFirstNameError" text="Please add the valid string" textFill="RED" visible="false" wrapText="true" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />

@@ -1,7 +1,9 @@
 package gui;
 
 import java.io.IOException;
+import java.util.List;
 
+import business.Author;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;

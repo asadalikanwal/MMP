@@ -12,9 +12,13 @@ import dataaccess.DataAccessFacade;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class AddAuthorController {
+	
+	public AddBookController controller;
 
     @FXML
     private TextField fxFirstName;
@@ -64,7 +68,8 @@ public class AddAuthorController {
     @FXML
     private Label fxLastNameError;
 
-
+    @FXML
+    private Button fxSaveButton;
    
 	  
 
@@ -94,11 +99,21 @@ public class AddAuthorController {
 		
 		//Author(String firstName, String lastName, Address address, String phoneNumber, String shortBio, String credentials) 
 		
-
+		this.controller.authors.add(author);
+		this.controller.updateAuthorList();
+		
 		System.out.println(author.getFirstName());
 		AddAuthor.INSTANCE.hide();
-
-    	
+		Stage stage = (Stage)fxSaveButton.getScene().getWindow();
+		stage.close();
+	}
+	
+	public void setController(AddBookController c) {
+		this.controller = c;
+	}
+	
+	public AddBookController getController() {
+		return controller;
 	}
 
 	public void init() {

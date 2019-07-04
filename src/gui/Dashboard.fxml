@@ -67,9 +67,9 @@
         </Menu>
         <Menu fx:id="menuBook" mnemonicParsing="false" text="Book">
           <items>
+                  <MenuItem mnemonicParsing="false" onAction="#addBookEvent" text="Add Book" />
            
             <MenuItem mnemonicParsing="false" onAction="#addBookCopyEvent" text="Add Copy" />
-                  <MenuItem mnemonicParsing="false" onAction="#addAuthorEvent" text="Add Author" />
           </items>
         </Menu>
         <Menu fx:id="menuCheckout" mnemonicParsing="false" text="Checkout">

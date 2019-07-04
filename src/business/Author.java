@@ -2,10 +2,13 @@ package business;
 
 import java.io.Serializable;
 
+import gui.AddBookController;
+
 public class Author extends Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String shortBio;
 	private String credentials;
+	
 	public Author(String firstName, String lastName, Address address, String phoneNumber, String shortBio, String credentials) {
 		super(firstName, lastName, address, phoneNumber);
 		this.shortBio = shortBio;
@@ -23,6 +26,8 @@ public class Author extends Person implements Serializable {
 	public String getCredentials() {
 		return credentials;
 	}
+	
+	
 	
 	@Override
 	public String toString() {
