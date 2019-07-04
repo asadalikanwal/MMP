@@ -19,6 +19,7 @@ public class CheckoutRecord implements Serializable {
 		returnStatus = false;
 		recordId = member.getMemberId() + book.getId();
 	}
+	
 
 	public Member getMember() {
 		return member;
@@ -41,6 +42,26 @@ public class CheckoutRecord implements Serializable {
 
 	public LocalDate getDueDate() {
 		return dueDate;
+	}
+
+	public String getMemberID() {
+		return member.getMemberId();
+	}
+
+	public String getMemberName() {
+		return member.getFullName();
+	}
+
+	public String getBookTitle() {
+		return book.getTitle();
+	}
+
+	public String getBookISBN() {
+		return book.getIsbn();
+	}
+
+	public String getBookId() {
+		return book.getId();
 	}
 
 	public String toString() {

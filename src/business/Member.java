@@ -14,10 +14,6 @@ public class Member extends Person implements Serializable {
 		checkoutRecords = new ArrayList<CheckoutRecord>();
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public String getMemberId() {
 		return memberId;
 	}
@@ -28,6 +24,10 @@ public class Member extends Person implements Serializable {
 
 	public List<CheckoutRecord> getCheckoutRecords() {
 		return checkoutRecords;
+	}
+	
+	public String getFullName() {
+		return super.getFirstName()+" "+super.getLastName();
 	}
 
 	public void setCheckoutRecord(CheckoutRecord checkoutRecord) {

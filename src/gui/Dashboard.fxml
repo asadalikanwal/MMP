@@ -63,7 +63,10 @@
             <MenuItem mnemonicParsing="false" onAction="#addBookCopyEvent" text="Add Copy" />
           </items>
         </Menu>
-        <Menu fx:id="menuCheckout" mnemonicParsing="false" text="Checkout Book" />
+        <Menu fx:id="menuCheckout" mnemonicParsing="false" text="Checkout">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#checkoutBookEvent" text="Checkout Book" />
+               </items></Menu>
       </menus>
     </MenuBar>
   </top>

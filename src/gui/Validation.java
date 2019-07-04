@@ -7,7 +7,7 @@ public class Validation {
 		String regex = null;
 
 		if (type.equals("String")) {
-			regex = "[A-Za-z\\s]+";
+			regex = "[A-Za-z0-9\\-\\s]+";
 			label.setText("Please add the valid string");
 		} else if (type.equals("Address")) {
 			if (s.isEmpty() || s == null || s == "") {

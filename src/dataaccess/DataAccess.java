@@ -25,8 +25,6 @@ public interface DataAccess {
 
 	public void saveNewMember(Member member);
 	
-	public List<CheckoutRecord> searchMember(String id);
-	
 	public Member srcMember(String id);
 
 	// book
@@ -44,4 +42,6 @@ public interface DataAccess {
 	public boolean saveCheckoutRecord(CheckoutRecord record);
 
 	public HashMap<String, CheckoutRecord> readCheckoutRecordMap();
+	
+	public List<CheckoutRecord> searchMember(String id);
 }
