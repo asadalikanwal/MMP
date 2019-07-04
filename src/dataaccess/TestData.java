@@ -142,6 +142,17 @@ public class TestData {
 //		for (Book entry : result5.values()) {
 //			System.out.println(entry.toString());
 //		}
+//		System.out.println();		
+//		// get members
+//		List<Member> members = daf.readMember();
+//		for (Member member : members) {
+//			System.out.println(member);
+//		}
 //		System.out.println();
+//		// get books
+		List<Book> books = daf.readBookList();
+		for (Book book : books) {
+			System.out.println(book);
+		}
 	}
 }

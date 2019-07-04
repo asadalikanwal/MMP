@@ -27,10 +27,12 @@ public class Author extends Person implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		return sb.append(super.getFirstName()).append(":").
-				append(super.getLastName()).append(":").
-				append(super.getAddress()).append(":").
-				append(shortBio).append(":").
-				append(credentials).toString();
+		return sb.append(super.getFirstName()).append(" ").
+		append(super.getLastName()).toString();
+//		return sb.append(super.getFirstName()).append(":").
+//				append(super.getLastName()).append(":").
+//				append(super.getAddress()).append(":").
+//				append(shortBio).append(":").
+//				append(credentials).toString();
 	}	
 }

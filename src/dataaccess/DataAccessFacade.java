@@ -29,14 +29,14 @@ public class DataAccessFacade implements DataAccess {
 	private static HashMap<String, User> users;
 	private static HashMap<String, Member> members;
 	private int defaulId;
-	
+
 	public DataAccessFacade() {
 		getBooks();
 		getUsers();
 		getMembers();
 		getCheckoutRecords();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private HashMap<String, Book> getBooks() {
 		if (books == null) {
@@ -44,7 +44,7 @@ public class DataAccessFacade implements DataAccess {
 		}
 		return books;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private HashMap<String, User> getUsers() {
 		if (users == null) {
@@ -57,7 +57,7 @@ public class DataAccessFacade implements DataAccess {
 	private HashMap<String, Member> getMembers() {
 		if (members == null) {
 			members = (HashMap<String, Member>) readFromStorage(DbType.MEMBERS);
-		} 
+		}
 		defaulId = members == null ? 0 : members.size();
 		return members;
 	}
@@ -74,31 +74,36 @@ public class DataAccessFacade implements DataAccess {
 		ObjectOutputStream out = null;
 		try {
 			if (type == DbType.MEMBERS) {
-				HashMap<String, Member> map = (members != null) ? (HashMap<String, Member>)members : new HashMap<String, Member>();
+				HashMap<String, Member> map = (members != null) ? (HashMap<String, Member>) members
+						: new HashMap<String, Member>();
 				Member member = (Member) ob;
 				map.put(member.getMemberId(), member);
 				ob = map;
 				members = map;
 			} else if (type == DbType.BOOKS) {
-				HashMap<String, Book> map = (books != null) ? (HashMap<String, Book>)books : new HashMap<String, Book>();
+				HashMap<String, Book> map = (books != null) ? (HashMap<String, Book>) books
+						: new HashMap<String, Book>();
 				Book book = (Book) ob;
 				map.put(book.getId(), book);
 				ob = map;
 				books = map;
 			} else if (type == DbType.USERS) {
-				HashMap<String, User> map = (users != null) ? (HashMap<String, User>)users : new HashMap<String, User>();
+				HashMap<String, User> map = (users != null) ? (HashMap<String, User>) users
+						: new HashMap<String, User>();
 				User user = (User) ob;
 				map.put(user.getUsername(), user);
 				ob = map;
 				users = map;
 			} else if (type == DbType.CHECKOUTRECORD) {
-				HashMap<String, CheckoutRecord> map = (checkoutRecords != null) ? (HashMap<String, CheckoutRecord>)checkoutRecords : new HashMap<String, CheckoutRecord>();
+				HashMap<String, CheckoutRecord> map = (checkoutRecords != null)
+						? (HashMap<String, CheckoutRecord>) checkoutRecords
+						: new HashMap<String, CheckoutRecord>();
 				CheckoutRecord record = (CheckoutRecord) ob;
 				map.put(record.getRecordId(), record);
 				ob = map;
 				checkoutRecords = map;
 			}
-			
+
 			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, type.toString());
 			out = new ObjectOutputStream(Files.newOutputStream(path));
 			out.writeObject(ob);
@@ -144,7 +149,15 @@ public class DataAccessFacade implements DataAccess {
 	public HashMap<String, Book> readBooksMap() {
 		return getBooks();
 	}
-
+	
+	public List<Book> readBookList(){
+		HashMap<String, Book> books = getBooks();
+		List<Book> bookList = new ArrayList<Book>();
+		for (Book entry : books.values()) {
+			bookList.add(entry);
+		}
+		return bookList;
+	}
 	@Override
 	public boolean addCopy(String isbn, int number) {
 		Book book = searchBook(isbn);
@@ -158,7 +171,7 @@ public class DataAccessFacade implements DataAccess {
 	}
 
 	@Override
-	public Book	searchBook(String isbn) {
+	public Book searchBook(String isbn) {
 		HashMap<String, Book> books = getBooks();
 		for (Book book : books.values()) {
 			if (book.getIsbn().equals(isbn)) {
@@ -196,6 +209,16 @@ public class DataAccessFacade implements DataAccess {
 	}
 
 	@Override
+	public List<Member> readMember() {
+		HashMap<String, Member> members = getMembers();
+		List<Member> membersList = new ArrayList<Member>();
+		for (Member entry : members.values()) {
+			membersList.add(entry);
+		}
+		return membersList;
+	}
+
+	@Override
 	public void saveNewMember(Member member) {
 		if (member.getMemberId() == null)
 			member.setMemberId(String.format("1%06d", defaulId));
@@ -215,17 +238,18 @@ public class DataAccessFacade implements DataAccess {
 		}
 		return false;
 	}
-	
+
 	public Member srcMember(String id) {
 		HashMap<String, Member> member = getMembers();
 		for (Member record : member.values()) {
 			if (record.getMemberId().equals(id)) {
-				 return record;
+				return record;
 			}
 		}
 		return null;
 	}
 
+	// checkout
 	@Override
 	public List<CheckoutRecord> searchMember(String id) {
 		HashMap<String, CheckoutRecord> checkoutRecord = getCheckoutRecords();
@@ -238,7 +262,6 @@ public class DataAccessFacade implements DataAccess {
 		return chkRecords;
 	}
 
-	// checkout
 	@Override
 	public HashMap<String, CheckoutRecord> readCheckoutRecordMap() {
 		return getCheckoutRecords();
@@ -272,7 +295,7 @@ public class DataAccessFacade implements DataAccess {
 					saveCheckoutRecord(record);
 				} else {
 					// calculate fine
-					//TODO
+					// TODO
 					System.out.println("Book is overdue, cannot checkout without fine!");
 				}
 			}

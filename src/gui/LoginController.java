@@ -14,11 +14,9 @@ public class LoginController {
 
 	@FXML
 	private PasswordField password;
-	
-	 @FXML
-	 private Label errorMsg;
-	
-	
+
+	@FXML
+	private Label errorMsg;
 
 	private Root currentStage;
 
@@ -32,18 +30,18 @@ public class LoginController {
 	}
 
 	public void loginButtonClicked() {
-		System.out.println("Logged in!"+ username.getText());
-		
+		System.out.println("Logged in!" + username.getText());
+
 		DataAccessFacade daf = new DataAccessFacade();
 		AccessLevel roleString = daf.userLogin(username.getText(), password.getText());
-		if(roleString.equals(AccessLevel.NONE)) {
+		if (roleString.equals(AccessLevel.NONE)) {
 			errorMsg.setText("Username or password is not valid!");
 			errorMsg.setVisible(true);
 			return;
 		}
-		
+
 		Root.setUserRole(roleString);
-		System.out.println("roleString: "+ roleString);
+		System.out.println("roleString: " + roleString);
 
 		Dashboard.INSTANCE.init(Root.rootStage());
 		Dashboard.INSTANCE.show();

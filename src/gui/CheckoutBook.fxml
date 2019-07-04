@@ -20,11 +20,11 @@
         <GridPane hgap="3.0" vgap="5.0" BorderPane.alignment="CENTER">
           <children>
             <Label text="Book ID" GridPane.rowIndex="2" />
-            <TextField fx:id="fxBookId" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" onAction="#CheckoutBookEvent" text="Checkout" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="fxBookId" onKeyReleased="#checkoutButtonEnable" onMouseClicked="#checkoutButtonEnable" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="fxCheckoutBttn" mnemonicParsing="false" onAction="#CheckoutBookEvent" text="Checkout" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="Member ID" />
-                  <TextField fx:id="fxMemberID" GridPane.columnIndex="1" />
-                  <Button mnemonicParsing="false" onAction="#searchMember" text="Search Member" GridPane.columnIndex="2" />
+                  <TextField fx:id="fxMemberID" onKeyReleased="#checkoutButtonEnable" onMouseClicked="#checkoutButtonEnable" GridPane.columnIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#searchMember" text="Search Record" GridPane.columnIndex="2" />
                   <Label fx:id="fxMemberIDError" text="Please add the valid string" textFill="RED" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" onAction="#checkAvailability" text="Check Availability" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Label fx:id="fxBookIdError" text="Please add the valid string" textFill="RED" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />

@@ -1,18 +1,83 @@
 package gui;
 
 import java.io.IOException;
-
+import java.util.List;
 import business.AccessLevel;
+import business.Book;
+import business.Member;
+import dataaccess.DataAccessFacade;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class DashboardController{
+public class DashboardController {
+
+	DataAccessFacade daf = new DataAccessFacade();
 
 	@FXML
-	MenuBar myMenuBar;
+	private Tab TabMembers;
+
+	@FXML
+	private TableView<Member> tbMember;
+
+	@FXML
+	private TableColumn tbMemberName;
+
+	@FXML
+	private TableColumn tbMemberNum;
+
+	@FXML
+	private TableColumn tbMemberPhone;
+
+	@FXML
+	private TableColumn tbMemberStreet;
+
+	@FXML
+	private TableColumn tbMemberCity;
+
+	@FXML
+	private TableColumn tbMemberState;
+
+	@FXML
+	private TableColumn tbMemberZip;
+
+	@FXML
+	private Tab TabBooks;
+
+	@FXML
+	private TableView<Book> tbBook;
+
+	@FXML
+	private TableColumn tbBookId;
+
+	@FXML
+	private TableColumn tbBookTitle;
+
+	@FXML
+	private TableColumn tbBookISBN;
+
+	@FXML
+	private TableColumn tbBookAuthors;
+
+	@FXML
+	private TableColumn tbBookAvailability;
+
+	@FXML
+	private TableColumn tbBookAvailableCopy;
+
+	@FXML
+	private TableColumn tbBookTotalCopy;
+
+	@FXML
+	private TableColumn tbBookDuration;
+
+	@FXML
+	private MenuBar myMenuBar;
 
 	@FXML
 	private Menu menuMember;
@@ -22,12 +87,6 @@ public class DashboardController{
 
 	@FXML
 	private Menu menuCheckout;
-
-	@FXML
-	private Tab TabMembers;
-
-	@FXML
-	private Tab TabBooks;
 
 	public void init() {
 		Dashboard.INSTANCE.setMaximized(true);
@@ -41,12 +100,12 @@ public class DashboardController{
 		menuCheckout.setVisible(false);
 
 		// Enable/Disable menu as per user accessLevel
-		if(Root.getUserRole() == AccessLevel.LIBRARIAN) {
+		if (Root.getUserRole() == AccessLevel.LIBRARIAN) {
 			menuCheckout.setVisible(true);
-		} else if(Root.getUserRole() == AccessLevel.ADMINISTRATOR) {
+		} else if (Root.getUserRole() == AccessLevel.ADMINISTRATOR) {
 			menuMember.setVisible(true);
 			menuBook.setVisible(true);
-		} else if(Root.getUserRole() == AccessLevel.BOTH) {
+		} else if (Root.getUserRole() == AccessLevel.BOTH) {
 			menuMember.setVisible(true);
 			menuBook.setVisible(true);
 			menuCheckout.setVisible(true);
@@ -55,9 +114,41 @@ public class DashboardController{
 		// Enable/Disable Tabs as per user accessLevel
 		TabMembers.setDisable(false);
 		TabBooks.setDisable(false);
+
+		populateMemberTable();
+		populateBookTable();
 	}
 
-	public  void addMemberEvent() throws IOException {
+	private void populateMemberTable() {
+		List<Member> members = daf.readMember();
+
+		tbMember.getItems().setAll(members);
+		tbMemberName.setCellValueFactory(new PropertyValueFactory<Member, String>("fullName"));
+		tbMemberNum.setCellValueFactory(new PropertyValueFactory<Member, String>("memberId"));
+		tbMemberPhone.setCellValueFactory(new PropertyValueFactory<Member, String>("phoneNumber"));
+		tbMemberStreet.setCellValueFactory(new PropertyValueFactory<Member, String>("street"));
+		tbMemberCity.setCellValueFactory(new PropertyValueFactory<Member, String>("city"));
+		tbMemberState.setCellValueFactory(new PropertyValueFactory<Member, String>("state"));
+		tbMemberZip.setCellValueFactory(new PropertyValueFactory<Member, String>("zip"));
+
+	}
+
+	private void populateBookTable() {
+		List<Book> books = daf.readBookList();
+
+		tbBook.getItems().setAll(books);
+		tbBookId.setCellValueFactory(new PropertyValueFactory<Book, String>("id"));
+		tbBookTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
+		tbBookISBN.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
+		tbBookAuthors.setCellValueFactory(new PropertyValueFactory<Book, String>("authors"));
+		tbBookAvailability.setCellValueFactory(new PropertyValueFactory<Book, String>("availability"));
+		tbBookAvailableCopy.setCellValueFactory(new PropertyValueFactory<Book, String>("numberOfCopy"));
+		tbBookTotalCopy.setCellValueFactory(new PropertyValueFactory<Book, String>("totalNumOfCopy"));
+		tbBookDuration.setCellValueFactory(new PropertyValueFactory<Book, String>("maxCheckoutLength"));
+
+	}
+
+	public void addMemberEvent() throws IOException {
 		System.out.println("addMemberEvent clicked");
 
 		AddMember.INSTANCE.init(Root.rootStage());
@@ -65,8 +156,7 @@ public class DashboardController{
 
 	}
 
-
-	public  void editMemberEvent() throws IOException {
+	public void editMemberEvent() throws IOException {
 		System.out.println("EditMember clicked");
 
 		EditMember.INSTANCE.init(Root.rootStage());
@@ -74,8 +164,7 @@ public class DashboardController{
 
 	}
 
-
-	public  void addBookEvent() throws IOException {
+	public void addBookEvent() throws IOException {
 		System.out.println("addMemberEvent clicked");
 
 		AddBook.INSTANCE.init(Root.rootStage());
@@ -83,8 +172,7 @@ public class DashboardController{
 
 	}
 
-
-	public  void addBookCopyEvent() throws IOException {
+	public void addBookCopyEvent() throws IOException {
 		System.out.println("adBookCopyEvent clicked");
 
 		AddBookCopy.INSTANCE.init(Root.rootStage());
@@ -103,57 +191,10 @@ public class DashboardController{
 
 	public void addAuthorEvent(ActionEvent event) throws IOException {
 
-		System.out.println("AddAuthor	 - clicked");
+		System.out.println("AddAuthor - clicked");
 		AddAuthor.INSTANCE.init(Root.rootStage());
 		AddAuthor.INSTANCE.showAndWait();
 
 	}
-
-
-
-
-
-	//	public  void addMemberEvent() throws IOException {
-	//		System.out.println("addMemberEvent clicked");
-	//		
-	////		Parent addMember = FXMLLoader.load(getClass().getResource("AddMember.fxml"));
-	////		Scene memberScene = new Scene(addMember);
-	////		
-	////		
-	//////		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-	////		//In your event handler
-	////		Stage window = (Stage) myMenuBar.getScene().getWindow();
-	////		window.setScene(memberScene);
-	////		window.show();
-	//		
-	//		AddMember.INSTANCE.init(Root.rootStage());
-	//		AddMember.INSTANCE.showAndWait();
-	//		
-	//		
-	//	}
-
-
-	//	public  void addMemberBttnEvent(ActionEvent event) throws IOException {
-	//		System.out.println("addMemberEvent clicked");
-	//
-	//		
-	//		Parent addMember = FXMLLoader.load(getClass().getResource("AddMember.fxml"));
-	//		Scene memberScene = new Scene(addMember);
-	//		
-	//		
-	//		
-	//		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-	//		window.setScene(memberScene);
-	//		window.show();
-	//	}
-
-	//	@Override
-	//	public void initialize(URL arg0, ResourceBundle arg1) {
-	//		// TODO Auto-generated method stub
-	//		System.out.println("Initialize");
-	//		//menuMember.setVisible(false);
-	//		
-	//	}
-
 
 }

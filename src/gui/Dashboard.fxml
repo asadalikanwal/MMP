@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -13,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DashboardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DashboardController">
   <center>
     <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
@@ -21,10 +18,15 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <TableView fx:id="tbMember" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <columns>
-                    <TableColumn prefWidth="75.0" text="Column X" />
-                    <TableColumn prefWidth="75.0" text="Column X" />
+                    <TableColumn fx:id="tbMemberName" minWidth="150.0" prefWidth="-1.0" text="Name" />
+                    <TableColumn fx:id="tbMemberNum" minWidth="150.0" prefWidth="-1.0" text="ID" />
+                              <TableColumn fx:id="tbMemberPhone" minWidth="150.0" prefWidth="-1.0" text="Phone Number" />
+                              <TableColumn fx:id="tbMemberStreet" minWidth="150.0" prefWidth="-1.0" text="Street" />
+                              <TableColumn fx:id="tbMemberCity" prefWidth="81.0" text="City" />
+                              <TableColumn fx:id="tbMemberState" prefWidth="68.0" text="State" />
+                              <TableColumn fx:id="tbMemberZip" prefWidth="98.0" text="Zip" />
                   </columns>
                 </TableView>
               </children>
@@ -35,10 +37,16 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <TableView fx:id="tbBook" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <columns>
-                    <TableColumn prefWidth="75.0" text="Column X" />
-                    <TableColumn prefWidth="75.0" text="Column X" />
+                              <TableColumn fx:id="tbBookId" minWidth="150.0" prefWidth="-1.0" text="ID" />
+                              <TableColumn fx:id="tbBookTitle" minWidth="150.0" prefWidth="-1.0" text="Ttile" />
+                              <TableColumn fx:id="tbBookISBN" minWidth="150.0" prefWidth="-1.0" text="ISBN" />
+                              <TableColumn fx:id="tbBookAuthors" minWidth="150.0" prefWidth="-1.0" text="Authors" />
+                              <TableColumn fx:id="tbBookAvailability" minWidth="150.0" prefWidth="-1.0" text="Availability" />
+                    <TableColumn fx:id="tbBookAvailableCopy" minWidth="150.0" prefWidth="-1.0" text="Available Copy" />
+                    <TableColumn fx:id="tbBookTotalCopy" minWidth="150.0" prefWidth="-1.0" text="Total Copy" />
+                              <TableColumn fx:id="tbBookDuration" minWidth="150.0" prefWidth="-1.0" text="Checkout Duration" />
                   </columns>
                 </TableView>
               </children>

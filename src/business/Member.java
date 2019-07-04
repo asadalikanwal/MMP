@@ -29,6 +29,27 @@ public class Member extends Person implements Serializable {
 	public String getFullName() {
 		return super.getFirstName()+" "+super.getLastName();
 	}
+	
+	public String getStreet() {
+		return super.getAddress().getStreet();
+	}
+	
+	public String getCity() {
+		return super.getAddress().getCity();
+	}
+	
+	
+	public String getState() {
+		return super.getAddress().getState();
+	}
+	
+	public String getZip() {
+		return super.getAddress().getZip();
+	}
+	
+	public String getPhoneNumber() {
+		return super.getPhoneNumber();
+	}
 
 	public void setCheckoutRecord(CheckoutRecord checkoutRecord) {
 		checkoutRecords.add(checkoutRecord);

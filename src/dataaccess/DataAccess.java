@@ -20,6 +20,8 @@ public interface DataAccess {
 	
 	// member
 	public HashMap<String, Member> readMemberMap();
+	
+	public List<Member> readMember();
 
 	public boolean updateMembers(Member member, String id);
 
@@ -35,6 +37,8 @@ public interface DataAccess {
 	public Book	searchBook(String isbn);
 	
 	public HashMap<String, Book> readBooksMap();
+	
+	public List<Book> readBookList();
 	
 	public boolean returnBook(String bookId);
 
