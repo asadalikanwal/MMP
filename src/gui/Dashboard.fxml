@@ -61,6 +61,7 @@
           <items>
            
             <MenuItem mnemonicParsing="false" onAction="#addBookCopyEvent" text="Add Copy" />
+                  <MenuItem mnemonicParsing="false" onAction="#addAuthorEvent" text="Add Author" />
           </items>
         </Menu>
         <Menu fx:id="menuCheckout" mnemonicParsing="false" text="Checkout">

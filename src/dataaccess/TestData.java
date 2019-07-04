@@ -44,43 +44,12 @@ public class TestData {
 //			daf.saveNewMember(member);
 //		}
 //
-//		// Book
-//		List<Author> book1Author = new ArrayList<Author>();
-//		List<Author> book2Author = new ArrayList<Author>();
-//		List<Author> book3Author = new ArrayList<Author>();
-//		List<Author> book4Author = new ArrayList<Author>();
-//		List<Author> book5Author = new ArrayList<Author>();
-//		List<Author> book6Author = new ArrayList<Author>();
-//		List<Author> book7Author = new ArrayList<Author>();
 //
-//		book1Author.add(new Author("Jemes", "Bond", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"371-455-8765", "World reknown writer. Wrote 100 books", "PhD, 100 Publications"));
-//		book2Author.add(new Author("Steve", "Jobs", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"371-455-8765", "World reknown writer. Wrote 100 books", "PhD, 100 Publications"));
-//		book3Author.add(new Author("Elan", "Musk", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"371-455-8765", "World reknown writer. Wrote 100 books", "PhD, 100 Publications"));
-//		book4Author.add(new Author("Anna", "Bel", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"371-455-8765", "World reknown writer. Wrote 100 books", "PhD, 100 Publications"));
-//		book5Author.add(new Author("Will", "Smith", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"371-455-8765", "World reknown writer. Wrote 100 books", "PhD, 100 Publications"));
-//		book6Author.add(new Author("Hugh", "Klien", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"371-455-8765", "World reknown writer. Wrote 100 books", "PhD, 100 Publications"));
-//		book7Author.add(new Author("Tom", "Brady", new Address("1000 N. 4th St.", "Fairfield", "52557", "Iowa"),
-//				"371-455-8765", "World reknown writer. Wrote 100 books", "PhD, 100 Publications"));
-//		Book book1 = new Book("Harry Potter 1", "23-11451", book1Author, true, 3, 21);
-//		Book book2 = new Book("Harry Potter 2", "23-11452", book2Author, true, 3, 21);
-//		Book book3 = new Book("FPP Book", "23-11453", book3Author, true, 1, 21);
-//		Book book4 = new Book("MPP Book", "23-11454", book4Author, true, 1, 21);
-//		Book book5 = new Book("National Geography", "23-11455", book5Author, true, 2, 7);
-//		Book book6 = new Book("Peoples Magazin", "23-11456", book6Author, true, 2, 7);
-//		Book book7 = new Book("Home Jurnal", "23-11457", book7Author, true, 2, -1);
-//		daf.saveNewBook(book1);
-//		daf.saveNewBook(book2);
-//		daf.saveNewBook(book3);
-//		daf.saveNewBook(book4);
-//		daf.saveNewBook(book5);
-//		daf.saveNewBook(book6);
-//		daf.saveNewBook(book7);
+		HashMap<String, Book> result3 = (HashMap<String, Book>) daf.readBooksMap();
+		for (Book entry : result3.values()) {
+			System.out.println(entry.toString());
+		}
+//		System.out.println();
 //		
 //		// checkout record
 //		CheckoutRecord checkoutRecord1 = new CheckoutRecord(member1, book1);
