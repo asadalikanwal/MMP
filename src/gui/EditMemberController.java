@@ -87,6 +87,9 @@ public class EditMemberController {
 
 
 		daf.updateMembers(member, fxMemberID.getText());
+		
+		
+		Dashboard.INSTANCE.Controller.init();
 		EditMember.INSTANCE.hide();
 
 		HashMap<String, Member> result = (HashMap<String, Member>) daf.readMemberMap();

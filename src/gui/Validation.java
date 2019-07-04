@@ -16,6 +16,7 @@ public class Validation {
 				return false;
 			} else {
 				label.setVisible(false);
+				return true;
 			}
 		} else {
 			regex = "[0-9]+";

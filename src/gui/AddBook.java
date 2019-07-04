@@ -19,7 +19,7 @@ public class AddBook extends Stage {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBook.fxml"));
 			Scene scene = new Scene(loader.load());
 			Controller = loader.getController();
-			
+
 //			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			resizableProperty().setValue(Boolean.FALSE);
 			setScene(scene);
@@ -33,4 +33,14 @@ public class AddBook extends Stage {
 			e.printStackTrace();
 		}
 	}
+
+//	public DashboardController getdController() {
+//		return dController;
+//	}
+//
+//	public void setdController(DashboardController dController) {
+//		this.dController = dController;
+//	}
+	
+	
 }

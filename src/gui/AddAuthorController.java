@@ -99,13 +99,16 @@ public class AddAuthorController {
 		
 		//Author(String firstName, String lastName, Address address, String phoneNumber, String shortBio, String credentials) 
 		
-		this.controller.authors.add(author);
-		this.controller.updateAuthorList();
+		AddBook.INSTANCE.Controller.authors.add(author);
+//		this.controller.authors.add(author);
+		
+//		this.controller.updateAuthorList();
+		AddBook.INSTANCE.Controller.updateAuthorList();
 		
 		System.out.println(author.getFirstName());
 		AddAuthor.INSTANCE.hide();
-		Stage stage = (Stage)fxSaveButton.getScene().getWindow();
-		stage.close();
+//		Stage stage = (Stage)fxSaveButton.getScene().getWindow();
+//		stage.close();
 	}
 	
 	public void setController(AddBookController c) {

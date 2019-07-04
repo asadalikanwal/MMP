@@ -13,11 +13,14 @@ import dataaccess.DataAccessFacade;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class AddBookController {
 	public List<Author> authors = new ArrayList<>();
+	
+
 	@FXML
 	private Label fxAvailabilityError;
 
@@ -57,7 +60,7 @@ public class AddBookController {
 	
 	@FXML
 	void AddBookClick(ActionEvent event) {
-
+		
 //		String authorListStr = "";
 		for (Author a : authors) {
 //			authorListStr += (a.getFirstName() + " " + a.getLastName() + ", ");
@@ -82,10 +85,16 @@ public class AddBookController {
 		Book book = new Book(fxTitle.getText(), fxISBN.getText(), authors, true, Integer.parseInt(fxCopy.getText()), Integer.parseInt(fxDuration.getText()) );
 
 		daf.saveNewBook(book);
-		System.out.println("Book successfully Added");
-		AddBook.INSTANCE.hide();
 
+		
+		System.out.println("Book successfully Added");
+		Dashboard.INSTANCE.Controller.init();
+		AddBook.INSTANCE.hide();
+//		Stage stage = (Stage)fxAddBookButton.getScene().getWindow();
+//		stage.close();
+		
 	}
+	
 	
 	public void updateAuthorList() {
 		String authorListStr = "";
@@ -95,21 +104,23 @@ public class AddBookController {
 		}
 		authorListStr = authorListStr.length() > 0 ? authorListStr.substring(0, authorListStr.length()-2) : "";
 		fxAuthorsList.setText(authorListStr);
+		fxAuthorsList.setVisible(true);
 	}
 	
 	 @FXML
     void addAuthor(ActionEvent event) throws IOException {
 		 //System.out.println("addAuthor clicked");
 		 AddAuthor addAuthor = new AddAuthor();
-		 addAuthor.setController(this);
-		 addAuthor.init(Root.rootStage());
-		 addAuthor.showAndWait();
-//		 AddAuthor.INSTANCE.init(Root.rootStage());
-//		 AddAuthor.INSTANCE.showAndWait();
+//		 addAuthor.setController(this);
+//		 addAuthor.init(Root.rootStage());
+//		 addAuthor.showAndWait();
+		 AddAuthor.INSTANCE.init(Root.rootStage());
+		 AddAuthor.INSTANCE.showAndWait();
     }
 
 	public void init() {
-//		AddBook.INSTANCE.setMaximized(true);
+		fxAuthorsList.setVisible(false);
 		AddBook.INSTANCE.setTitle("Add Book");
 	}
+
 }

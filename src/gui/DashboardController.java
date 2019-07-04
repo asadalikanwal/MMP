@@ -92,7 +92,7 @@ public class DashboardController {
 		Dashboard.INSTANCE.setMaximized(true);
 		Dashboard.INSTANCE.setTitle("Library Management - Group 2");
 
-		System.out.println(Root.getUserRole());
+		System.out.println("Dashboard Controller" + Root.getUserRole());
 
 		// Making all the menu visibility false
 		menuMember.setVisible(false);
@@ -167,10 +167,12 @@ public class DashboardController {
 	public void addBookEvent() throws IOException {
 		System.out.println("addMemberEvent clicked");
 
+		
 		AddBook.INSTANCE.init(Root.rootStage());
 		AddBook.INSTANCE.showAndWait();
 
 	}
+	
 
 	public void addBookCopyEvent() throws IOException {
 		System.out.println("adBookCopyEvent clicked");
