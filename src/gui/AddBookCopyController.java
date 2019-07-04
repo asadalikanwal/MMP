@@ -1,12 +1,6 @@
 package gui;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import business.Address;
 import business.Book;
-import business.Member;
 import dataaccess.DataAccessFacade;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,6 +39,7 @@ public class AddBookCopyController {
 	@FXML
 	void addBookSearchClick(ActionEvent event) {
 
+		System.out.println("Book search clicked");
 		// Form Validations
 		boolean bookIsbn = Validation.isValid(fxBookIsbn.getText(), "String", fxBookIsbnErr);
 
@@ -54,17 +49,27 @@ public class AddBookCopyController {
 			return;
 		}
 
+		fxBookIsbnErr.setText("");
 		DataAccessFacade daf = new DataAccessFacade();
 		Book book = daf.searchBook(fxBookIsbn.getText());
-		if (book == null) {
-			fxBookIsbnErr.setText("Book Not Found");
-		} else {
+		if (book != null) {
 			fxBookIsbnErr.setText("");
 			fxTitle.setText(book.getTitle());
-			fxAuthors.setText(book.getAuthors().toString());
+			String aut = "";
+			for (int i = 0; i < book.getAuthors().size(); i++) {
+				aut += book.getAuthors().get(i).getFirstName() + " " + book.getAuthors().get(i).getLastName() + ", ";
+			}
+			fxAuthors.setText(aut);
 			fxIsbn.setText(book.getIsbn());
 			fxMaxCheckout.setText(String.valueOf(book.getMaxCheckoutLength()));
 			fxCopy.setText(String.valueOf(book.getTotalNumOfCopy()));
+		} else {
+			fxTitle.setText("");
+			fxAuthors.setText("");
+			fxIsbn.setText("");
+			fxMaxCheckout.setText("");
+			fxCopy.setText("");
+			fxBookIsbnErr.setText("Book Not Found");
 		}
 	}
 
@@ -73,35 +78,32 @@ public class AddBookCopyController {
 
 		// Form Validations
 		boolean copy = Validation.isValid(fxCopyNo.getText(), "Number", fxCopyNoErr);
-		boolean bookIsbn = Validation.isValid(fxIsbn.getText(), "String", fxCopyNoErr);
+		boolean bookIsbn = Validation.isValid(fxIsbn.getText(), "String", fxBookIsbnErr);
 
 		if (!copy || !bookIsbn) {
+			fxCopyNoErr.setText("Operation Failed");
 			return;
 		}
+		fxCopyNoErr.setText("");
 
 		DataAccessFacade daf = new DataAccessFacade();
 		boolean updateResult = daf.addCopy(fxIsbn.getText(), Integer.parseInt(fxCopyNo.getText()));
 
-		if (!updateResult) {
-			fxCopyNoErr.setText("Operation Failed");
-		} else {
-			fxCopyNoErr.setText("Operation Success");
+		if (updateResult) {
 			fxBookIsbnErr.setText("");
-			fxBookIsbn.setText("");
-
-			fxTitle.setText("");
-			fxIsbn.setText("");
-			fxAuthors.setText("");
-			fxMaxCheckout.setText("");
-			fxCopy.setText("");
+			int OldNo = Integer.parseInt(fxCopy.getText());
+			int newNo = OldNo + Integer.parseInt(fxCopyNo.getText());
+			fxCopy.setText(String.valueOf(newNo));
 			fxCopyNo.setText("");
-		}
+			fxCopyNoErr.setText("Operation Success");
+			return;
+		} else
+			fxCopyNoErr.setText("Operation Failed");
 
 	}
 
 	public void init() {
 //		AddMember.INSTANCE.setMaximized(true);
 		AddMember.INSTANCE.setTitle("Add Book Copy");
-
 	}
 }

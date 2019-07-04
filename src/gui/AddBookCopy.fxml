@@ -23,15 +23,27 @@
         <GridPane hgap="3.0" vgap="30.0" BorderPane.alignment="CENTER">
           <children>
             <Label text="Title" />
-            <Label text="Authors" GridPane.rowIndex="1" />
-            <Label text="ISBN" GridPane.rowIndex="2" />
-            <Label text="Copy No" GridPane.rowIndex="3" />
-            <Label text="MaxCheckout" GridPane.rowIndex="4" />
-                  <Label GridPane.columnIndex="1" />
-                  <Label GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Authors" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
+            <Label text="ISBN" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
+            <Label text="Copy No" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
+            <Label text="MaxCheckout" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
+                  <Label fx:id="fxTitle" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                  <Label fx:id="fxCopy" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="fxIsbn" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="fxMaxCheckout" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label fx:id="fxAuthors" GridPane.columnIndex="1" GridPane.rowIndex="1" />
           </children>
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.0" minWidth="10.0" prefWidth="189.0" />
@@ -66,25 +78,21 @@
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
-                  </Label>
-                  <TextField fx:id="fxBookIsbn" prefHeight="39.0" prefWidth="215.0" promptText="Please Input" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" onAction="#addBookSearchClick" text="Search" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
-                     </font></Button>
+                     </font>
+                  </Label>
+                  <TextField fx:id="fxBookIsbn" promptText="Please Input" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#addBookSearchClick" text="Search" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Label fx:id="fxBookIsbnErr" textFill="#f20000" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                   </Label>
-                  <Label text="Search Book By" GridPane.halignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
+                  <Label text="Search Book By" GridPane.halignment="CENTER" />
                </children>
                <padding>
-                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
                </padding>
             </GridPane>
          </top>
@@ -102,14 +110,11 @@
                <children>
                   <Label text="Add Copy No with" GridPane.halignment="CENTER" />
                   <TextField fx:id="fxCopyNo" promptText="Number of Copies" GridPane.columnIndex="1" />
-                  <Button mnemonicParsing="false" onAction="#addBookCopyClick" text="Add Copies" GridPane.columnIndex="2" GridPane.halignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#addBookCopyClick" text="Add Copies" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
                   <Label fx:id="fxCopyNoErr" textFill="#f20000" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                </children>
                <padding>
-                  <Insets bottom="40.0" left="40.0" right="10.0" top="30.0" />
+                  <Insets left="10.0" right="10.0" top="10.0" />
                </padding>
                <BorderPane.margin>
                   <Insets />
